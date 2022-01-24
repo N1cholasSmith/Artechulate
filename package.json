@@ -9,9 +9,17 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N1cholasSmith/Arteculate.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/N1cholasSmith/Artechulate/issues"
+  },
+  "homepage": "https://github.com/N1cholasSmith/Artechulate#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
   },
