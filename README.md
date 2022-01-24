@@ -5,11 +5,11 @@
 
 ---
 ## Description
-Artechulate is a Web3.0 platform to assist the average user articulate, technical articles. The world is currently experiencing an innovation boom and keeping up with technology and filtering incorrect information on social media is time consuming. Artechulate is the information hub for innovative and disruptive technoligies such as Cryptocurrency, Blockchain, Artificial Intelligence, Machine Learning, Robotics, Autonomous driving, Data security and analytics. Artechluate features white papers, technical overviews, news, NFT's and articles from the communities content creators.
+Artechulate is a Web3.0 platform to assist the average user in articulating technical articles. The world is currently experiencing an innovation boom. Keeping up with technology and filtering incorrect information on social media is time-consuming. Artechulate is the information hub for innovative and disruptive technologies such as Cryptocurrency, Blockchain, Artificial Intelligence, Machine Learning, Robotics, Autonomous driving, Data security, and analytics. Artechluate features white papers, technical overviews, news, NFT's and articles from the communities' content creators.
 
-Artechulate is based on a Web3.0 generative model made famous by Constellation Network. Through Alkimi Exchange's ads Artechulate is a one of a kind platform that is able to incentivise the reader for their attention and data whilst reading articles, the content creator is rewarded for bringing traffic to their articles and the website moderators are incentivised to continually improve and update the platform as they are all able to earn $ADS tokens. 
+Artechulate is based on a Web3.0 generative model made famous by Constellation Network. Artechulate is a one-of-a-kind platform. Through Alkimi Exchange's ads,  Artechulate can incentivize the reader for their attention while reading articles. The content creator is rewarded for bringing readers to their articles. The website moderators are incentivized to continually improve and update the platform as they can all earn $ADS tokens. 
 
-This solves the trilemma dilemma of bringing in new users, content creators and motivated individuals to maintain the website. Artechulate is a innovative solution to reward every member of strong communities in a self sustaining Web3.0 application.
+Artechulate solves the trilemma of bringing in new users, motivating content creators, and motivating individuals to maintain the website. Artechulate is an innovative solution to reward every member of strong communities in a self-sustaining Web3.0 application. Artechulate is paving the way for a new standard of websites.
 
 
 [Artechulate.com](https://n1cholassmith.github.io/artechulate/)
@@ -19,6 +19,7 @@ This solves the trilemma dilemma of bringing in new users, content creators and 
 - [Technlogies](#technologies)
 - [Usage](#usage)
 - [Features](#features)
+- [Future-Development](#future-development)
 - [Credits/Contributors](#credits/contributors)
 - [How-to-Contribute](#how-to-contribute)
 - [License](#license)
@@ -28,14 +29,17 @@ This solves the trilemma dilemma of bringing in new users, content creators and 
 
 ## 🕹 Technologies used
 - MERN Stack
-- MongoDB
+- MongoDB Atlas
 - Express.js
 - React.js
 - Node.js
 - Heroku 
 - JWT Authentication
+- GraphQL
+- Mongoose ODM
 - Google Analytics
 - Google Single Signature Sign in
+- PWB
 
 ---
 <a name="usage"></a>
