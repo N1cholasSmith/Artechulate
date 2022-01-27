@@ -16,16 +16,23 @@ const resolvers = {
       // LAST PIECE OF THE PUZZLE
       throw new AuthenticationError('You need to be logged in!');
     },
-  },
-  Query: {
-    getArticles: async (parent, args, context) => {
-      if (context.articles) {
+    getArticles: async () => {
       const articles = await Article.find();
       return articles;
-      } 
-        // throw new Error(err);
+      
     },
+    getArticle: async (parent, { articleId }) => {
+      const article = await Article.findById(articleId);
+      if(article){
+        // if article exists return it
+        return article;
+      } else {
+        throw new Error ('article not found')
+      }
+    }
   },
+
+
 
   // Query: {
   //   async getArticles() {
@@ -83,10 +90,10 @@ const resolvers = {
     },
     
     // REGISTER NEW USER =====================================================
-    register: async (parent, {
-      registerInput: {username, email, password, confirmPassword }
-      }, context ) => {
+    register: async (parent, { registerInput }, context ) => {
       
+        let {username, email, password, confirmPassword } = registerInput
+        
         // validates the required fields 
       const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
       if(!valid){
@@ -94,7 +101,7 @@ const resolvers = {
       }
 
       // finds the users info and validates the username is unique
-      const user = await User.findOne({ username });
+      let user = await User.findOne({ username });
       if(user){
         throw new UserInputError('Username is taken, must be unique', {
           errors: {
@@ -103,28 +110,25 @@ const resolvers = {
         })
       }
 
-      const newUser = new User({
-        email,
-        username,
-        password,
-        createdAt: new Date().toISOString()
-      });
+      // const newUser = new User({
+      //   email,
+      //   username,
+      //   password,
+      //   createdAt: new Date().toISOString()
+      // });
 
-      // const user = await User.create(args);
-      // const token = signToken(user);
-   
-    },
-
-    //    addUser: async (parent, { username, email, password }) => {
-    // const user = await User.create({ username, email, password });
-
-    // ADD NEW USER ===========================================================
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
+      user = await User.create(registerInput);
       const token = signToken(user);
-
       return { token, user };
     },
+
+    // ADD NEW USER ===========================================================
+    // addUser: async (parent, args) => {
+    //   const user = await User.create(args);
+    //   const token = signToken(user);
+
+    //   return { token, user };
+    // },
 
     // rough draft (changed books to articles)
     saveArticle: async (parent, { input }, context) => {
@@ -156,6 +160,23 @@ const resolvers = {
       console.log('deleteArticle Authentication Failed')
       throw new AuthenticationError("You need to be logged in!");
     },
+    createArticle: async (parent, { body, title }, context) => {
+      console.log('createArticle resolver hit')
+      if (context.user) {
+        console.log('we have context (createArticle')
+        const newArticle = await Article.create({
+          body,
+          user: context.user._id,
+          username: context.user.username,
+          title: title,
+          createdAt: new Date().toISOString()
+        });
+
+        return newArticle;
+      } else {
+        throw new AuthenticationError("You need to be logged in!");
+      }
+    }
   },
 };
 
