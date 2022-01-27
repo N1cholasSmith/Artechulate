@@ -21,6 +21,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    createdAt: {
+      type: String
+    },
     // set savedArticles to be an array of data that adheres to the articleSchema
     savedArticles: [articleSchema],
   },
