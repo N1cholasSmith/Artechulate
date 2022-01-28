@@ -4,6 +4,7 @@ module.exports.validateRegisterInput = (
     password,
     confirmPassword
 ) => {
+    // REGISTER VALIDATION =================================================
     const errors = {};
     if(!username || username.trim() === ''){
         errors.username = 'Username must not be empty';
@@ -15,13 +16,15 @@ module.exports.validateRegisterInput = (
         errors.password = 'Password must not be empty';
     } else if (password !== confirmPassword) {
         errors.confirmPassword = 'Passwords do not match'
-    }
+    } 
+    
     return {
         errors,
         valid: Object.keys(errors).length <1
     }
 };
 
+// LOGIN VALIDATION ========================================================
 module.exports.validateLoginInput = ( username, password ) => {
     const errors = {};
     if (!username || username.trim() === '') {
@@ -30,8 +33,14 @@ module.exports.validateLoginInput = ( username, password ) => {
     if (!password || password.trim() === '') {
         errors.password = 'Password must not be empty'
     }
+
     return {
         errors,
         valid: Object.keys(errors).length <1
     }
 }
+
+    // // ARTICLE VALIDATOR ==================================================
+    // if (!article || article === ''){
+    //     errors.article = 'Article must not be empty';
+    // }

@@ -18,6 +18,21 @@ const typeDefs = gql`
     # image: String
     # link: String
     createdAt: String
+    comments: [Comment]!
+    likes: [Like]
+  }
+
+  type Comment {
+    id: ID
+    createdAt: String
+    username: String
+    body: String
+  }
+
+  type Like {
+    id: ID
+    createdAt: String
+    username: String
   }
 
   input RegisterInput {
@@ -54,7 +69,11 @@ const typeDefs = gql`
     # addUser(username: String!, email: String!, password: String!): Auth
     createArticle(body: String!, title: String!): Article
     deleteArticle(articleId: String!): User
+    updateArticle(body: String!, title: String): Article
     saveArticle(input: savedArticle): User
+
+    # createComment(articleId: String, body: String): Article
+    # deleteComment(articleId: ID, commentId: ID)
   }
 `;
 
