@@ -138,35 +138,35 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    updateArticle: async (parent, { updateArticle  }, context) => {
+    updateArticle: async (parent, { body, title }, context) => {
       console.log('updateArticle resolver hit')
-      let { body, title } = updateArticle 
+      // let { body, title } = updateArticle 
 
       if (context.user) {
         console.log('We have context (updateArticle)')
-        const updatedUser = await User.findOneAndUpdate(
+        const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { 
             $set:{
-              article:updateArticle,
+              article:body,
+              article:title,
             },
           },
           {
             new: true,
             runValidators: true
           },
-          console.log("updateArticle Successful")
+      
         ); 
-
-        console.log('updateArticle Authentication Failed')
-        throw new AuthenticationError("You need to be logged in!");  
-
-      } else {
-        return updateUser.articles.find((artcile) => {
-          return article.updateArticle === updateArticle
-        })
-      }
+        console.log("updateArticle Successful")
+        return updateUser
+       
+        } else {
+          console.log('updateArticle Authentication Failed')
+          // throw new AuthenticationError("You need to be logged in!"); 
+        }
     },
+    
   
 
        // rough draft (changed books to articles)
