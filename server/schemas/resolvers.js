@@ -106,6 +106,12 @@ const resolvers = {
       if (context.user) {
         console.log(context.user)
         console.log('we have context (createArticle')
+        
+        // PREVENTS ARTICLES WITH NO CONTENT
+        // if(args.body.trim() === '') {
+        //   throw new Error('Article body must not be empty')
+        // }
+
         const newArticle = await Article.create({
           body,
           user: context.user._id,
@@ -144,6 +150,28 @@ const resolvers = {
       console.log('deleteArticle Authentication Failed')
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    // ***** WAS THIS BUT DIDNT DELETE EVEN WHEN CHANGE USER TO ARTICLE *****
+    // deleteArticle: async (parent, { articleId }, context) => {
+    //   console.log('deleteArticle resolver hit')
+
+    //   if (context.user) {
+    //     console.log('We have context (deleteArticle)')
+    //     const updatedUser = await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+
+    //       { $pull: { articleId: articleId }  },
+
+    //       { new: true }
+    //     );
+
+    //     console.log("deleteArticle Successful")
+    //     return updatedUser;
+    //   }
+    //   console.log('deleteArticle Authentication Failed')
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+
 
     // deleteArticle: async (parent, { articleId }, context) => {
     //   console.log('deleteArticle resolver hit')
@@ -242,7 +270,7 @@ const resolvers = {
     }
     console.log('Authentication Failed')
     throw new AuthenticationError("You need to be logged in!");
-  },
+    },
 
     // COMMENTS SECTION ==============================================================================================
     createComment: async (parent, { articleId, body }, context) => {
@@ -315,15 +343,10 @@ const resolvers = {
 
       } else throw new UserInputError('Article not found');
     },
-    // article: {
-    //   likeCount: async (parent) => {
-    //     console.log(parent);
-    //     return await parent.likes.length;
-    //   },
-    //   commentCount: async (parent) => {
-    //     return await parent.comments.length;
-    //   }
-    // },
+    
+      
+      
+  
   },
 
   // Counts the number of likes and comments
@@ -339,8 +362,32 @@ const resolvers = {
 
 module.exports = resolvers;
 
+    // *************************** SUBSCRIPTION *******************************************
+    // Server
+    // typedef subscription
+    // resolver
+    // schema/index.js Subscription
 
-  // ADD NEW USER ===========================================================
+    // graphql error
+    // "error": "Could not connect to websocket endpoint ws://localhost:3001/graphql. Please check if the endpoint url is correct."
+
+    // resolver function
+    // Subscription: {
+    //   newArticle: {
+    //     notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
+    //   }
+    // }
+
+    // create article
+    // context.pubsub.publish('NEW_ARTICLE',{
+    //   newArticle: Article
+    // });
+
+    // ******************************************************************************************
+
+
+
+    // ADD NEW USER ===========================================================
     // addUser: async (parent, args) => {
     //   const user = await User.create(args);
     //   const token = signToken(user);
@@ -375,35 +422,3 @@ module.exports = resolvers;
     //     }
     //   }
     // },
-
-
-
-
-
-
-
-
-
-
-
-
-    // *************************** SUBSCRIPTION *******************************************
-    // Server
-    // typedef subscription
-    // resolver
-    // schema/index.js Subscription
-
-    // graphql error
-    // "error": "Could not connect to websocket endpoint ws://localhost:3001/graphql. Please check if the endpoint url is correct."
-
-    // resolver function
-    // Subscription: {
-    //   newArticle: {
-    //     notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
-    //   }
-    // }
-
-    // create article
-    // context.pubsub.publish('NEW_ARTICLE',{
-    //   newArticle: Article
-    // });

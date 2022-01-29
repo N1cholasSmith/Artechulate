@@ -18,3 +18,60 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_ARTICLES = gql`
+  {
+    getArticles {
+      _id
+      username
+      title
+      body
+      createdAt
+      user {
+        _id
+        username
+        email
+      }
+      commentCount  
+      comments{
+        id
+        username
+        body
+        createdAt
+      }
+      likeCount
+      likes {
+        username
+      }
+    }
+  }
+`;
+
+export const GET_ARTICLE = gql`
+  {
+    getArticle (articleId: $articleId) {
+      _id
+      username
+      title
+      body
+      createdAt
+      user {
+        _id
+        username
+        email
+      }
+      commentCount  
+      comments{
+        id
+        username
+        body
+        createdAt
+      }
+      likeCount
+      likes {
+        username
+      }
+    }
+  }
+`;
+
