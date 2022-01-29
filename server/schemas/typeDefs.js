@@ -18,8 +18,12 @@ const typeDefs = gql`
     # image: String
     # link: String
     createdAt: String
-    comments: [Comment]!
+    comments: [Comment]
     likes: [Like]
+    commentCount: Int
+    likeCount: Int
+
+    user: User
   }
 
   type Comment {
@@ -46,7 +50,7 @@ const typeDefs = gql`
     articleId: String
     title: String
     username: String
-    description: String
+    body: String
     image: String
     link: String
   }
@@ -63,17 +67,24 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    # login(email: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
     register(registerInput: RegisterInput): Auth
-    # addUser(username: String!, email: String!, password: String!): Auth
-    createArticle(body: String!, title: String!): Article
+
+    createArticle(body: String, title: String): Article
     deleteArticle(articleId: String!): User
     updateArticle(id: ID, body: String!, title: String): Article
     saveArticle(input: savedArticle): User
 
-    # createComment(articleId: String, body: String): Article
-    # deleteComment(articleId: ID, commentId: ID)
+    createComment(articleId: String, body: String): Article
+    deleteComment(articleId: ID, commentId: ID): Article
+    likeArticle(articleId: ID): Article
+
+    # articleCount(likeCount: Int, commentCount: Int): Article
+  }
+
+  # notification of new articles
+  type Subscription {
+    newArticle: Article
   }
 `;
 

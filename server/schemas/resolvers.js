@@ -36,7 +36,7 @@ const resolvers = {
       } else {
         throw new Error ('article not found')
       }
-    }
+    },
   },
 
 
@@ -100,16 +100,24 @@ const resolvers = {
       return { token, user };
     },
 
+    // CREATE ARTICLE ======================================================================================
     createArticle: async (parent, { body, title }, context) => {
       console.log('createArticle resolver hit')
       if (context.user) {
+        console.log(context.user)
         console.log('we have context (createArticle')
         const newArticle = await Article.create({
           body,
           user: context.user._id,
           username: context.user.username,
           title: title,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          // comments: [Comment],
+          // likes: [Like],
+        });
+          // ******************************* SUBSCRIPTION **********************************
+        context.pubsub.publish('NEW_ARTICLE',{
+          newArticle: Article
         });
 
         return newArticle;
@@ -118,17 +126,16 @@ const resolvers = {
       }
     },
 
+    // DELETE ARTICLE ====================================================================================
     deleteArticle: async (parent, { articleId }, context) => {
       console.log('deleteArticle resolver hit')
 
+      // TODO: Only the Creator should be able to delete
       if (context.user) {
+        console.log(context.user)
         console.log('We have context (deleteArticle)')
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-
-          { $pull: { articleId: articleId }  },
-
-          { new: true }
+        const updatedUser = await Article.findOneAndRemove(
+          { _id: articleId },
         );
 
         console.log("deleteArticle Successful")
@@ -138,11 +145,33 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    updateArticle: async (parent, { body, title }, context) => {
+    // deleteArticle: async (parent, { articleId }, context) => {
+    //   console.log('deleteArticle resolver hit')
+
+    //   if (context.user) {
+    //     console.log('We have context (deleteArticle)')
+    //     const updatedUser = await Article.findOneAndRemove(
+    //       { _id: context.user._id },
+
+    //       { _id: articleId },
+    //     );
+
+    //     console.log("deleteArticle Successful")
+    //     return updatedUser;
+    //   }
+    //   console.log('deleteArticle Authentication Failed')
+    //   throw new AuthenticationError("You need to be logged in!");
+    // },
+
+
+    // UPDATE ARTICLE ================================================================================
+    updateArticle: async (parent, args, context) => {
+      console.log(args)
       console.log('updateArticle resolver hit')
       // let { body, title } = updateArticle 
 
       if (context.user) {
+        console.log(context.user)
         console.log('We have context (updateArticle)')
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -166,13 +195,42 @@ const resolvers = {
           // throw new AuthenticationError("You need to be logged in!"); 
         }
     },
+    // updateArticle: async (parent, args, context) => {
+    //   console.log(args)
+    //   console.log('updateArticle resolver hit')
+    //   // let { body, title } = updateArticle 
+
+    //   if (context.user) {
+    //     console.log('We have context (updateArticle)')
+    //     const updateUser = await User.findOne({
+    //        _id: context.user._id 
+    //       }); 
+
+    //       article.body = body;
+    //       article.title = title;
+
+    //       const updaterUser = await User.findOneAndUpdate(
+    //         {
+    //           _id: context.user._id,
+    //         }
+    //       )
+
+    //     console.log("updateArticle Successful")
+    //     return updateUser
+       
+    //     } else {
+    //       console.log('updateArticle Authentication Failed')
+    //       // throw new AuthenticationError("You need to be logged in!"); 
+    //     }
+    // },
     
   
-
+    // SAVE ARTICLE ==============================================================================================
        // rough draft (changed books to articles)
     saveArticle: async (parent, { input }, context) => {
     console.log('saveArticle resolver hit')
     if (context.user) {
+      console.log(context.user)
       console.log('We have context (saveArticle)')
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
@@ -186,8 +244,96 @@ const resolvers = {
     throw new AuthenticationError("You need to be logged in!");
   },
 
+    // COMMENTS SECTION ==============================================================================================
+    createComment: async (parent, { articleId, body }, context) => {
+      const { username } = context.user 
 
+      if(body.trim()=== ''){
+        throw UserInputError('Empty comment', {
+          errors: {
+            body: 'Comment body must not be empty'
+          }
+        })
+      }
+
+      const article = await Article.findById(articleId);
+
+      if(article){
+        // unshift adds comment to the top
+        article.comments.unshift({
+          body,
+          username,
+          createdAt: new Date().toISOString()
+        })
+        await article.save();
+        return article;
+      } else throw new UserInputError('Article not found');
+    },
+
+    // DELETE COMMENTS ===============================================================================================
+    deleteComment: async (parent, { articleId, commentId }, context) => {
+      const { username } = context.user 
+
+      const article = await Article.findById(articleId);
+
+      if(article){
+        // finds the comment in the index of comments to delete it from
+        const commentIndex = article.comments.findIndex(c => c.id === commentId)
+
+        if(article.comments[commentIndex].username === username){
+          article.comments.splice(commentIndex, 1);
+          await article.save();
+          return article;
+        } else {
+          // throws error if user is trying to delete a comment that is not theirs
+          throw new AuthenticationError('Action not allowed')
+        }
+      } else {
+        throw new UserInputError('Article not found')
+      }
+    },
+
+    // LIKE ARTICLE ==================================================================================================
+    // GQ ERR - "Cannot read property 'find' of undefined"
+    likeArticle: async (parent, { articleId }, context) => {
+      const { username } = context.user 
+
+      const article = await Article.findById(articleId);
+        if(article){
+          // if article exists user can like only once
+          if(article.likes.find(like => like.username === username)){
+            // unlike article if already liked
+            article.likes = article.likes.filter(like => like.username !== username);
+          } else {
+            article.likes.push({
+              username,
+              createdAt: new Date().toISOString()
+            })
+          }
+          await article.save();
+          return article;
+
+      } else throw new UserInputError('Article not found');
+    },
+    // article: {
+    //   likeCount: async (parent) => {
+    //     console.log(parent);
+    //     return await parent.likes.length;
+    //   },
+    //   commentCount: async (parent) => {
+    //     return await parent.comments.length;
+    //   }
+    // },
   },
+
+  // Counts the number of likes and comments
+ 
+
+  Subscription: {
+    newArticle: {
+      notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
+    }
+  }
 };
 
 
@@ -229,3 +375,35 @@ module.exports = resolvers;
     //     }
     //   }
     // },
+
+
+
+
+
+
+
+
+
+
+
+
+    // *************************** SUBSCRIPTION *******************************************
+    // Server
+    // typedef subscription
+    // resolver
+    // schema/index.js Subscription
+
+    // graphql error
+    // "error": "Could not connect to websocket endpoint ws://localhost:3001/graphql. Please check if the endpoint url is correct."
+
+    // resolver function
+    // Subscription: {
+    //   newArticle: {
+    //     notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
+    //   }
+    // }
+
+    // create article
+    // context.pubsub.publish('NEW_ARTICLE',{
+    //   newArticle: Article
+    // });
