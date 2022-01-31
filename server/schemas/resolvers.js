@@ -122,9 +122,9 @@ const resolvers = {
           // likes: [Like],
         });
           // ******************************* SUBSCRIPTION **********************************
-        context.pubsub.publish('NEW_ARTICLE',{
-          newArticle: Article
-        });
+        // context.pubsub.publish('NEW_ARTICLE',{
+        //   newArticle: Article
+        // });
 
         return newArticle;
       } else {
@@ -352,11 +352,11 @@ const resolvers = {
   // Counts the number of likes and comments
  
 
-  Subscription: {
-    newArticle: {
-      notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
-    }
-  }
+  //   Subscription: {
+  //     newArticle: {
+  //       notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
+  //     }
+  //   }
 };
 
 

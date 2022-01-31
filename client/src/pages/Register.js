@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client';
+import '../styles/styles.css'
 
 // REGISTER MUTATION
 import { REGISTER_USER } from '../utils/mutations';
 
-function Register() {
+function Register(props) {
   const [errors, setErrors] = useState({})
   const [values, setValues] = useState({
     username: '',
@@ -21,6 +22,8 @@ function Register() {
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       console.log(result)
+      // Sends newly registered user to the homepage
+      props.history.push('/')
     },
     onError(err) {
       // returns one object with all errors
@@ -52,7 +55,7 @@ function Register() {
         />
         <Form.Input
           label='Email'
-          placEholder='Email'
+          placeholder='Email'
           name='email'
           type='email'
           value={values.email}
