@@ -1,5 +1,5 @@
 /* Navbar */
-.navbar{
+/* .navbar{
     position: sticky;
     top: 0;
     z-index: 1;
@@ -21,6 +21,20 @@
 }
 
 /* Button */
-.btn:hover{
+/* .btn:hover{
     color:white
+} */ 
+
+.page-title{
+    display:block !important;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 15px;
 }
+
+/* REGISTER PAGE ======================================================================================= */
+.from-container {
+    width:400px;
+    margin:auto;
+}
+

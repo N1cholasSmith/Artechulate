@@ -26,6 +26,7 @@ const userSchema = new Schema(
     createdAt: {
       type: String
     },
+    
     // set savedArticles to be an array of data that adheres to the articleSchema
     savedArticles: [articleSchema],
   },
@@ -54,7 +55,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 
 // when we query a user, we'll also get another field called `articleCount` with the number of saved articles we have
 userSchema.virtual('articleCount').get(function () {
-  return this.savedArticles.length;
+  return this.savedArticle.length;
 });
 
 const User = model('User', userSchema);

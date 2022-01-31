@@ -201,7 +201,7 @@ const resolvers = {
       if (context.user) {
         console.log(context.user)
         console.log('We have context (updateArticle)')
-        const updateUser = await User.findOneAndUpdate(
+        const updateArticle = await Article.findOneAndUpdate(
           { _id: context.user._id },
           { 
             $set:{
@@ -216,7 +216,7 @@ const resolvers = {
       
         ); 
         console.log("updateArticle Successful")
-        return updateUser
+        return updateArticle
        
         } else {
           console.log('updateArticle Authentication Failed')
@@ -255,14 +255,14 @@ const resolvers = {
   
     // SAVE ARTICLE ==============================================================================================
        // rough draft (changed books to articles)
-    saveArticle: async (parent, { input }, context) => {
+    savedArticle: async (parent, { input }, context) => {
     console.log('saveArticle resolver hit')
     if (context.user) {
       console.log(context.user)
       console.log('We have context (saveArticle)')
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $addToSet: { savedArticles: input } },
+        { $addToSet: { savedArticle: input } },
         { new: true, runValidators: true }
       );
       console.log("saveArticle Successful")

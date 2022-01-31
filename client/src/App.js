@@ -1,21 +1,20 @@
-// import logo from './logo.svg';
-import 'semantic-ui-css/semantic.min.css'
-import 'bootstrap'
+
 import './App.css';
 import './styles/styles.css'
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client'
+// import 'semantic-ui-css/semantic.min.css'
 
-// WAS import SearchBooks (homepage) & SavedBooks (profile)
+
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 import Feed from './pages/Feed'
 import Login from './pages/Login'
 import Register from './pages/Register';
 
-import Navbar from './components/Navbar';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -47,22 +46,30 @@ function App() {
     // Conneting to ApolloProvider Client so anything below the client in the tree can use the query hook
     <ApolloProvider client={client}>
       <Router>
-      <>
+      <div className='ui container'>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/profile' component={Profile} />
-          <Route exact path='/feed' component={Feed} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/register' component={Register} />
-       
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route exact path='/profile'>
+            <Profile />
+          </Route>
+          <Route exact path='/feed'>
+            <Feed />
+          </Route>
+          <Route exact path='/login'>
+            <Login />
+          </Route>
+          <Route exact path='/register'>
+            <Register />
+          </Route>
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
-      </>
+      </div>
       </Router>
     </ApolloProvider>
   );
 }
 
 export default App;
-

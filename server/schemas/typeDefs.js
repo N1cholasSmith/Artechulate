@@ -51,8 +51,8 @@ const typeDefs = gql`
     title: String
     username: String
     body: String
-    image: String
-    link: String
+    # image: String
+    # link: String
   }
 
   type Auth {
@@ -73,7 +73,7 @@ const typeDefs = gql`
     createArticle(body: String, title: String): Article
     deleteArticle(articleId: String!): User
     updateArticle(id: ID, body: String!, title: String): Article
-    saveArticle(input: savedArticle): User
+    savedArticle(input: savedArticle): User
 
     createComment(articleId: String, body: String): Article
     deleteComment(articleId: ID, commentId: ID): Article
