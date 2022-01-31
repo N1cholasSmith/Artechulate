@@ -6,18 +6,18 @@ import '../styles/styles.css'
 // REGISTER MUTATION
 import { REGISTER_USER } from '../utils/mutations';
 
+// IMPORT HOOK
+import { useForm } from '../utils/hooks'
+
 function Register(props) {
   const [errors, setErrors] = useState({})
-  const [values, setValues] = useState({
+
+  const { onChange, onSubmit, values } = useForm(registerUsers, {
     username: '',
     email: '',
     password: '',
     confirmPassword: ''
   })
-
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.values })
-  }
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
@@ -33,11 +33,9 @@ function Register(props) {
     variables: values
   })
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    registerUser();
+  function registerUsers(){
+    registerUser()
   }
-
 
 
   return (
