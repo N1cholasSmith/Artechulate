@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert } from 'semantic-ui-react'
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
+import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client';
 import '../styles/styles.css'
 
@@ -10,37 +11,36 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 // IMPORT HOOK
-import { useForm } from '../utils/hooks';
+// import { useForm } from '../utils/hooks';
 
 function Login(props) {
   // AUTH *******
-  const [userFormData, setUserFormData] = useState({ username: '', password: '' });
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [userFormData, setUserFormData] = useState({ 
+    username: '', 
+    password: '' 
+  });
+
+  const history = useHistory
 
   // errors object
   const [errors, setErrors] = useState({})
 
-  // utils/hooks.js
-  const { onChange, onSubmit, values } = useForm(loginUsers, {
-    username: '',
-    password: '',
-  })
-
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, result) {
-      // NOT LOGGING INFO
       console.log(result)
       // Sends newly registered user to the homepage
-      props.history.push('/')
+
     },
     onError(err) {
       // returns one object with all errors
-      console.log(err.graphQLErrors[0].extensions.exception.errors)
-      setErrors(err.graphQLErrors[0].extensions.exception.errors)
+      console.log(err)
+      setErrors(err)
     },
-    variables: values
   })
+
+  function handleClick() {
+    history.push('/');
+    }
 
   // AUTH *******
   const handleInputChange = (event) => {
@@ -48,77 +48,61 @@ function Login(props) {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  function loginUsers(){
-    loginUser();
-  }
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    // check if form has everything (as per react-bootstrap docs)
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
 
     try {
       const { data } = await loginUser({
         variables: { ...userFormData },
       });
 
+      // when data comes back from login call the Authorization
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
 
+    // resets form once its done
     setUserFormData({
       username: '',
-      // email: '',
       password: '',
     });
   };
 
-  
-// onSubmit={handleFormSubmit}
-
   return (
     <div className="form-container">
-      <Form noValidate validated={validated} onSubmit={onSubmit} className={loading ? 'loading' : ''}>
+      <Form noValidate onSubmit={handleFormSubmit} className={loading ? 'loading' : ''}>
         <h1>Login</h1>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-          Something went wrong with your login credentials!
-        </Alert>
         <Form.Input
           label='Username'
           placeholder='Username'
           name='username'
           type='text'
-          value={values.username}
+          value={userFormData.username}
           error={errors.username ? true : false}
-          onChange={onChange}
-          // value={userFormData.password}
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
         />
         <Form.Input
           label='Password'
           placeholder='Password'
           name='password'
           type='password'
-          value={values.password}
+          value={userFormData.password}
           error={errors.password ? true : false}
-          onChange={onChange}
+          onChange={handleInputChange}
         />
 
-        <Button type='submit' primary >
+        <Router>
+        <Button type='submit' primary onClick={handleClick}>
           Login
         </Button>
+        </Router>
       </Form>
       {Object.keys(errors).length > 0 && (
         <div className='ui error message'>
           <ul className='list'>
-            {Object.values(errors).map(value => (
-              <li key={value}>{value}</li>
+            {Object.values(errors).map((value, index) => (
+              <li key={index}>{value}</li>
             ))}
           </ul>
         </div>
@@ -126,7 +110,5 @@ function Login(props) {
     </div>
   );
 }
-
-
 
 export default Login;
