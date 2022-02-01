@@ -64,6 +64,9 @@ function App() {
           <Route exact path='/register'>
             <Register />
           </Route>
+          {/* <Route exact path='/article/:articleId'>
+
+          </Route> */}
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
       </div>

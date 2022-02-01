@@ -10,10 +10,10 @@ import Auth from '../utils/auth'
 import { setContext } from '@apollo/client/link/context';
 
 // IMPORT LIKE BUTTON
-import { LikeButton } from './LikeButton'
+import  LikeButton  from './LikeButton';
 
 // PICTURES
-import Face from '../assets/images/face.jpg'
+import Face from '../assets/images/face.jpg';
 
 
 

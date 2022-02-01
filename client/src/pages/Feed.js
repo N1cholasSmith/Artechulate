@@ -5,12 +5,12 @@ import { useQuery } from '@apollo/client';
 import '../styles/styles.css'
 
 // IMPORTING AUTH AND CONTEXT ===============================================
-import { setContext } from '@apollo/client/link/context';
+// import { setContext } from '@apollo/client/link/context';
 import Auth from '../utils/auth';
 
 // COMPONENTS ===============================================================wwwww
 import ArticleCard from '../components/ArticleCard';
-import ArticleForm from '../components/ArticleForm'
+import ArticleForm from '../components/ArticleForm';
 
 // QUERIES ==================================================================
 import { GET_ARTICLES } from '../utils/queries'
@@ -19,7 +19,7 @@ import { GET_ARTICLES } from '../utils/queries'
 import Face from '../assets/images/face.jpg'
 
 const Feed = () => {
-    const { user } = useContext(setContext)
+    // const  user  = useContext(setContext)
     const { loading, data } = useQuery(GET_ARTICLES)
     console.log(data)
 
@@ -38,21 +38,16 @@ const Feed = () => {
         }
 
         // CHECK IF USER IS LOGGED IN.
-        // try {
-        //     const { data } = await login({
-        //         variables: { ...userFormData }
-        //     });
+        try {
+            const { data } = await login();
 
-        //     Auth.login(data.addUser.token);
-        // } catch (e) {
-        //     console.error(e);
-        // }
+            Auth.login(data.login.token);
+        } catch (e) {
+            console.error(e);
+        }
 
-
+        const user = data
     }
-
-
-
 
 
     return (
