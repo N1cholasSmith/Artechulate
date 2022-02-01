@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
+import '../styles/styles.css'
 
 // import moment from 'moment'
+
+// IMPORT AUTH CONTEXT TO DELETE IF LOGGED IN AND ARTICLE IS IDENTIFIED TO USER
+import Auth from '../utils/auth'
+import { setContext } from '@apollo/client/link/context';
+
+// IMPORT LIKE BUTTON
+import { LikeButton } from './LikeButton'
 
 // PICTURES
 import Face from '../assets/images/face.jpg'
 
 
 
-function ArticleCard({ article: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
-    function likeArticle(){
-        console.log('like Article')
-    }
-    function commentOnArticle(){
-        console.log('comment On Article')
-    }
+function ArticleCard({ article: { title, body, createdAt, id, username, likeCount, commentCount, likes } 
+}) {
+    // const user = auth
+    const { user } = useContext(setContext);
 
     return (
         <Card>
@@ -26,23 +31,20 @@ function ArticleCard({ article: { body, createdAt, id, username, likeCount, comm
                     src={Face}
                 />
                 <Card.Header>{username}</Card.Header>
-                {/* <Card.Meta as={Link} to={`/articles/${id}`}>{moment(createdAt).fromNow(true)}</Card.Meta> */}
+                {/* <Card.Meta as={Link} to={`/articles/${id}`}>
+                {moment(createdAt).fromNow(true)} 
+                </Card.Meta> */}
+                <Card.Description>
+                    {title}
+                </Card.Description>
                 <Card.Description>
                     {body}
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <div className='ui two buttons'>
-                    <Button as='div' labelPosition='right' onClick={likeArticle}>
-                        <Button color='teal' basic>
-                            <Icon name='heart' />
-                            Like
-                        </Button>
-                        <Label  basic color='teal' pointing='left'>
-                            {likeCount}
-                        </Label>
-                    </Button>
-                    <Button as='div' labelPosition='right' onClick={commentOnArticle}>
+                    <LikeButton article={{ id, likes, likeCount}} />
+                    <Button labelPosition='right' as={Link} to={`/articles/${id}`}>
                         <Button color='blue' basic>
                             <Icon name='comments' />
                             Comment
@@ -51,6 +53,16 @@ function ArticleCard({ article: { body, createdAt, id, username, likeCount, comm
                             {commentCount}
                         </Label>
                     </Button>
+                    {/* If users username matches user logged in, then they are shown a delete button */}
+                    {user && user.username === username && (
+                        <Button 
+                        as='div' 
+                        color='red' 
+                        floated='right'
+                        onClick={() => console.log('Delete Post')}>
+                            <Icon name='trash' style={{ margin: 0 }}></Icon>
+                        </Button>
+                    )}
                 </div>
             </Card.Content>
         </Card>

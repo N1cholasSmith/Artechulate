@@ -38,3 +38,8 @@
     margin:auto;
 }
 
+/* LIKE BUTTON { FOCUS } COLOUR TEAL */
+.ui.teal.button:focus, 
+.ui.teal.buttons .button:focus{
+    background-color: #00b5ad;
+}

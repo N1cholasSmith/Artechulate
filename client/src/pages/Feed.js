@@ -1,20 +1,25 @@
 
-import React, { useState, useEffect } from 'react';
-import { Grid, Image } from 'semantic-ui-react'
+import React, { useState, useEffect, useContext } from 'react';
+import { Grid, GridColumn, Image, Transition } from 'semantic-ui-react'
 import { useQuery } from '@apollo/client';
+import '../styles/styles.css'
 
+// IMPORTING AUTH AND CONTEXT ===============================================
+import { setContext } from '@apollo/client/link/context';
 import Auth from '../utils/auth';
 
-// PICTURES
-import Face from '../assets/images/face.jpg'
-
-// COMPONENTS ==============================================================
+// COMPONENTS ===============================================================wwwww
 import ArticleCard from '../components/ArticleCard';
+import ArticleForm from '../components/ArticleForm'
 
-// QUERIES 
+// QUERIES ==================================================================
 import { GET_ARTICLES } from '../utils/queries'
 
-function Feed() {
+// PICTURES =================================================================
+import Face from '../assets/images/face.jpg'
+
+const Feed = () => {
+    const { user } = useContext(setContext)
     const { loading, data } = useQuery(GET_ARTICLES)
     console.log(data)
 
@@ -22,6 +27,31 @@ function Feed() {
 
     // use this to determine if `useEffect()` hook needs to run again
     const articleDataLength = Object.keys(articleData).length;
+
+    const articleFeed = async (login) => {
+        console.log('articleFeed hit')
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            console.log('client not getting valid token (articleFeed)')
+            return false;
+        }
+
+        // CHECK IF USER IS LOGGED IN.
+        // try {
+        //     const { data } = await login({
+        //         variables: { ...userFormData }
+        //     });
+
+        //     Auth.login(data.addUser.token);
+        // } catch (e) {
+        //     console.error(e);
+        // }
+
+
+    }
+
+
 
 
 
@@ -32,16 +62,27 @@ function Feed() {
                     <h1>Latest Articles</h1>
                 </Grid.Row>
                 <Grid.Row>
-                    {/* Shows loading scren while fetching for article data */}
+                    {/* if logged in show this form */}
+                    {user && (
+                        <GridColumn>
+                            <ArticleForm>
+                                {/* component */}
+                            </ArticleForm>
+                        </GridColumn>
+                    )}
+
+                    {/* Shows loading screen while fetching for article data */}
                     {loading ? (
                         <h1> Loading Articles...</h1>
                     ) : (
-                        articleData && articleData.map(article => (
-                            <Grid.Column key={article.id} style={{ marginBottom: 20 }}>
+                        <Transition.Group>
+                            {articleData && articleData.map(article => (
+                            <Grid.Column key={articleDataLength.id} style={{ marginBottom: 20 }}>
                                 <Image src={Face} />
                                 <ArticleCard article={article} />
                             </Grid.Column>
-                        ))
+                            ))}
+                        </Transition.Group>
                     )}
                 </Grid.Row>
             </Grid>
@@ -49,33 +90,6 @@ function Feed() {
     );
 }
 
-// const FETCH_ARTICLES_QUERY = gql`
-//  {
-//     getArticles {
-//       _id
-//       username
-//       title
-//       body
-//       createdAt
-//       user {
-//         _id
-//         username
-//         email
-//       }
-//       commentCount  
-//       comments{
-//         id
-//         username
-//         body
-//         createdAt
-//       }
-//       likeCount
-//       likes {
-//         username
-//       }
-//     }
-//   }
-// `;
 
 export default Feed;
 

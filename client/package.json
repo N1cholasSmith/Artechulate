@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "apollo-link-context": "^1.0.20",
     "graphql": "^16.3.0",
     "jwt-decode": "^2.2.0",
     "nodemon": "^2.0.15",

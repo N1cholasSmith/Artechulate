@@ -37,11 +37,13 @@ export const CREATE_ARTICLE = gql`
       title
       body
       createdAt
+      commentCount
       comments {
         id
         username
         body
         createdAt
+        likeCount
         likes {
           id
           username
@@ -81,3 +83,27 @@ export const SAVE_ARTICLE = gql`
     }
   }
 `;
+
+export const LIKE_ARTICLE = gql`
+mutation likeArticle($articleId: ID){
+  likeArticle(articleId: $articleId){
+    _id
+    likes{
+      _id
+      username
+    }
+    likeCount
+  }
+}
+
+`
+
+
+
+
+
+
+
+
+
+
