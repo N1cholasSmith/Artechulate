@@ -14,7 +14,7 @@ import Profile from './pages/Profile';
 import Feed from './pages/Feed'
 import Login from './pages/Login'
 import Register from './pages/Register'; 
-import SingleArticle from './pages/SingleArticle'
+import SingleArticle from './pages/SingleArticle.js'
 
 
 // Construct our main GraphQL API endpoint

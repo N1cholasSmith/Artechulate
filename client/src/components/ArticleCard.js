@@ -33,7 +33,7 @@ function ArticleCard({
                     size='mini'
                     src={Face}
                 />
-                <Card.Header>{username}</Card.Header>
+                <Card.Header>@{username}</Card.Header>
                 {/* <Card.Meta as={Link} to={`/articles/${id}`}>
                 {moment(createdAt).fromNow(true)} 
                 </Card.Meta> */}
