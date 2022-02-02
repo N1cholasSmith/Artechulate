@@ -1,29 +1,32 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
-import '../styles/styles.css'
-
 // import moment from 'moment'
 
-// IMPORT AUTH CONTEXT TO DELETE IF LOGGED IN AND ARTICLE IS IDENTIFIED TO USER
-import Auth from '../utils/auth'
-import { setContext } from '@apollo/client/link/context';
-
-// IMPORT LIKE BUTTON
+// IMPORT LIKE BUTTON =======================================================
 import  LikeButton  from './LikeButton';
-
-// PICTURES
+import '../styles/styles.css';
+// PICTURES =================================================================
 import Face from '../assets/images/face.jpg';
+import VR from '../assets/images/VR.jpeg';
+// AUTH =====================================================================
+import Auth from '../utils/auth';
 
-
-
-function ArticleCard({ article: { title, body, createdAt, id, username, likeCount, commentCount, likes } 
+function ArticleCard({ 
+    article: { 
+        title, 
+        body, 
+        createdAt, 
+        _id : id, 
+        username, 
+        likeCount, 
+        commentCount, 
+        likes 
+    },
 }) {
-    // const user = auth
-    const { user } = useContext(setContext);
-
+    const user = Auth.getProfile().data;
     return (
-        <Card>
+        <Card fluid>
             <Card.Content>
                 <Image
                     floated='right'
@@ -34,16 +37,20 @@ function ArticleCard({ article: { title, body, createdAt, id, username, likeCoun
                 {/* <Card.Meta as={Link} to={`/articles/${id}`}>
                 {moment(createdAt).fromNow(true)} 
                 </Card.Meta> */}
-                <Card.Description>
+                <Image src={VR} />
+                <Card.Description className='article-card-title'>
                     {title}
                 </Card.Description>
-                <Card.Description>
+                <Card.Description className='article-card-body'>
                     {body}
                 </Card.Description>
+                <Button color='black' className='read-more-btn'>
+                    Read More
+                </Button>
             </Card.Content>
             <Card.Content extra>
-                <div className='ui two buttons'>
-                    <LikeButton article={{ id, likes, likeCount}} />
+                {/* <div className='ui two buttons'> */}
+                    <LikeButton user={user} article={{ id, likes, likeCount}} />
                     <Button labelPosition='right' as={Link} to={`/articles/${id}`}>
                         <Button color='blue' basic>
                             <Icon name='comments' />
@@ -55,15 +62,15 @@ function ArticleCard({ article: { title, body, createdAt, id, username, likeCoun
                     </Button>
                     {/* If users username matches user logged in, then they are shown a delete button */}
                     {user && user.username === username && (
-                        <Button 
+                    <Button 
                         as='div' 
                         color='red' 
                         floated='right'
                         onClick={() => console.log('Delete Post')}>
-                            <Icon name='trash' style={{ margin: 0 }}></Icon>
-                        </Button>
+                        <Icon name='trash' style={{ margin: 0 }}></Icon>
+                    </Button>
                     )}
-                </div>
+                {/* </div> */}
             </Card.Content>
         </Card>
     )

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, TextArea } from 'semantic-ui-react';
 import { useMutation, useQuery } from "@apollo/client";
 
 // IMPORT HOOK
@@ -43,38 +43,39 @@ const ArticleForm = () => {
     }
 
     return (
-        <>
-        <Form onSubmit={onSubmit}>
-            <h2>Create a Article</h2>
-            <Form.Field>
-            <Form.Input
-                    placeholder='Title'
-                    name='title'
-                    onChange={onChange}
-                    value={articleFormData.title, articleFormData.body}
-                    error={error ? true : false}
-                />
-                <Form.Input
-                    placeholder='Article Body'
-                    name='body'
-                    onChange={onChange}
-                    value={articleFormData.title, articleFormData.body}
-                    error={error ? true : false}
-                />
-                <Button type='submit' color='teal'>
-                    Submit
-                </Button>
-            </Form.Field>
-        </Form>
-        {error && (
-            <div className='ui error message' style={{ margineBottom: 20 }}>
-                <ul className='list'>
-                    {/* {error.graphQLErrors[0].message} */}
-                    <li>{error[0]}</li>
-                </ul>
-            </div>
-        )}
-        </>
+        <div className='article-form'>
+            <Form onSubmit={onSubmit} style={{ margineBottom: 20 }}>
+                <h2>Create a Article</h2>
+                <Form.Field>
+                        <Form.Input
+                            placeholder='Title'
+                            name='title'
+                            onChange={onChange}
+                            value={articleFormData.title}
+                            error={error ? true : false}
+                        />
+                        {/* WAS FORM.INPUT */}
+                        <TextArea
+                            placeholder='Article Body'
+                            name='body'
+                            onChange={onChange}
+                            value={articleFormData.body}
+                            error={error ? true : false}
+                        />
+                    <Button type='submit' color='teal'>
+                        Submit
+                    </Button>
+                </Form.Field>
+            </Form>
+            {error && (
+                <div className='ui error message' style={{ margineBottom: 20 }}>
+                    <ul className='list'>
+                        {/* {error.graphQLErrors[0].message} */}
+                        <li>{error[0]}</li>
+                    </ul>
+                </div>
+            )}
+        </div>
     );
 };
 

@@ -19,22 +19,24 @@ const resolvers = {
     // ARTICLE QUERIES =====================================================================================================
     getArticles: async () => {
       // sorting the articles into order of creating
-      const articles = await Article.find().sort({createdAt: -1});
+      const articles = await Article.find()
+        .populate('user')
+        .sort({ createdAt: -1 });
 
-      if(articles){
+      if (articles) {
         // if Articles exist it will return them all
         return articles;
       } else {
-        throw new Error ('article not found')
+        throw new Error('article not found')
       }
     },
     getArticle: async (parent, { articleId }) => {
       const article = await Article.findById(articleId);
-      if(article){
+      if (article) {
         // if article exists return it
         return article;
       } else {
-        throw new Error ('article not found')
+        throw new Error('article not found')
       }
     },
   },
@@ -59,28 +61,28 @@ const resolvers = {
       }
 
       if (!valid) {
-        throw UserInputError ('Errors', { errors });
+        throw UserInputError('Errors', { errors });
       }
 
       const token = signToken(user);
 
       return { token, user };
     },
-    
+
     // REGISTER NEW USER ==================================================================================
-    register: async (parent, { registerInput }, context ) => {
-      
-        let {username, email, password, confirmPassword } = registerInput
-        
-        // validates the required fields 
+    register: async (parent, { registerInput }, context) => {
+
+      let { username, email, password, confirmPassword } = registerInput
+
+      // validates the required fields 
       const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
-      if(!valid){
+      if (!valid) {
         throw new UserInputError('Validation errors', { errors })
       }
 
       // finds the users info and validates the username is unique
       let user = await User.findOne({ username });
-      if(user){
+      if (user) {
         throw new UserInputError('Username is taken, must be unique', {
           errors: {
             username: 'This username is taken'
@@ -106,7 +108,7 @@ const resolvers = {
       if (context.user) {
         console.log(context.user)
         console.log('we have context (createArticle')
-        
+
         // PREVENTS ARTICLES WITH NO CONTENT
         // if(args.body.trim() === '') {
         //   throw new Error('Article body must not be empty')
@@ -121,7 +123,7 @@ const resolvers = {
           // comments: [Comment],
           // likes: [Like],
         });
-          // ******************************* SUBSCRIPTION **********************************
+        // ******************************* SUBSCRIPTION **********************************
         // context.pubsub.publish('NEW_ARTICLE',{
         //   newArticle: Article
         // });
@@ -151,47 +153,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    // ***** WAS THIS BUT DIDNT DELETE EVEN WHEN CHANGE USER TO ARTICLE *****
-    // deleteArticle: async (parent, { articleId }, context) => {
-    //   console.log('deleteArticle resolver hit')
-
-    //   if (context.user) {
-    //     console.log('We have context (deleteArticle)')
-    //     const updatedUser = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-
-    //       { $pull: { articleId: articleId }  },
-
-    //       { new: true }
-    //     );
-
-    //     console.log("deleteArticle Successful")
-    //     return updatedUser;
-    //   }
-    //   console.log('deleteArticle Authentication Failed')
-    //   throw new AuthenticationError("You need to be logged in!");
-    // },
-
-
-    // deleteArticle: async (parent, { articleId }, context) => {
-    //   console.log('deleteArticle resolver hit')
-
-    //   if (context.user) {
-    //     console.log('We have context (deleteArticle)')
-    //     const updatedUser = await Article.findOneAndRemove(
-    //       { _id: context.user._id },
-
-    //       { _id: articleId },
-    //     );
-
-    //     console.log("deleteArticle Successful")
-    //     return updatedUser;
-    //   }
-    //   console.log('deleteArticle Authentication Failed')
-    //   throw new AuthenticationError("You need to be logged in!");
-    // },
-
-
     // UPDATE ARTICLE ================================================================================
     updateArticle: async (parent, args, context) => {
       console.log(args)
@@ -203,80 +164,51 @@ const resolvers = {
         console.log('We have context (updateArticle)')
         const updateArticle = await Article.findOneAndUpdate(
           { _id: context.user._id },
-          { 
-            $set:{
-              article:body,
-              article:title,
+          {
+            $set: {
+              article: body,
+              article: title,
             },
           },
           {
             new: true,
             runValidators: true
           },
-      
-        ); 
+
+        );
         console.log("updateArticle Successful")
         return updateArticle
-       
-        } else {
-          console.log('updateArticle Authentication Failed')
-          // throw new AuthenticationError("You need to be logged in!"); 
-        }
+
+      } else {
+        console.log('updateArticle Authentication Failed')
+        // throw new AuthenticationError("You need to be logged in!"); 
+      }
     },
-    // updateArticle: async (parent, args, context) => {
-    //   console.log(args)
-    //   console.log('updateArticle resolver hit')
-    //   // let { body, title } = updateArticle 
 
-    //   if (context.user) {
-    //     console.log('We have context (updateArticle)')
-    //     const updateUser = await User.findOne({
-    //        _id: context.user._id 
-    //       }); 
-
-    //       article.body = body;
-    //       article.title = title;
-
-    //       const updaterUser = await User.findOneAndUpdate(
-    //         {
-    //           _id: context.user._id,
-    //         }
-    //       )
-
-    //     console.log("updateArticle Successful")
-    //     return updateUser
-       
-    //     } else {
-    //       console.log('updateArticle Authentication Failed')
-    //       // throw new AuthenticationError("You need to be logged in!"); 
-    //     }
-    // },
-    
-  
     // SAVE ARTICLE ==============================================================================================
-       // rough draft (changed books to articles)
+    // rough draft (changed books to articles)
     savedArticle: async (parent, { input }, context) => {
-    console.log('saveArticle resolver hit')
-    if (context.user) {
-      console.log(context.user)
-      console.log('We have context (saveArticle)')
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $addToSet: { savedArticle: input } },
-        { new: true, runValidators: true }
-      );
-      console.log("saveArticle Successful")
-      return updatedUser;
-    }
-    console.log('Authentication Failed')
-    throw new AuthenticationError("You need to be logged in!");
+      console.log('saveArticle resolver hit')
+      if (context.user) {
+        console.log(context.user)
+        console.log('We have context (saveArticle)')
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedArticle: input } },
+          { new: true, runValidators: true }
+        );
+        console.log("saveArticle Successful")
+        return updatedUser;
+      }
+      console.log('Authentication Failed')
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     // COMMENTS SECTION ==============================================================================================
     createComment: async (parent, { articleId, body }, context) => {
-      const { username } = context.user 
+      const { username } = context.user
 
-      if(body.trim()=== ''){
+      if (body.trim() === '') {
         throw UserInputError('Empty comment', {
           errors: {
             body: 'Comment body must not be empty'
@@ -286,7 +218,7 @@ const resolvers = {
 
       const article = await Article.findById(articleId);
 
-      if(article){
+      if (article) {
         // unshift adds comment to the top
         article.comments.unshift({
           body,
@@ -300,15 +232,17 @@ const resolvers = {
 
     // DELETE COMMENTS ===============================================================================================
     deleteComment: async (parent, { articleId, commentId }, context) => {
-      const { username } = context.user 
+      const { username } = context.user
 
       const article = await Article.findById(articleId);
 
-      if(article){
+      if (article) {
         // finds the comment in the index of comments to delete it from
-        const commentIndex = article.comments.findIndex(c => c.id === commentId)
+        const commentIndex = article.comments.findIndex(
+          (c) => c.id === commentId
+        );
 
-        if(article.comments[commentIndex].username === username){
+        if (article.comments[commentIndex].username === username) {
           article.comments.splice(commentIndex, 1);
           await article.save();
           return article;
@@ -324,41 +258,48 @@ const resolvers = {
     // LIKE ARTICLE ==================================================================================================
     // GQ ERR - "Cannot read property 'find' of undefined"
     likeArticle: async (parent, { articleId }, context) => {
-      const { username } = context.user 
+      if (context.user) {
+        const { username } = context.user;
 
-      const article = await Article.findById(articleId);
-        if(article){
+        const article = await Article.findById(articleId).populate('user');
+        if (article) {
           // if article exists user can like only once
-          if(article.likes.find(like => like.username === username)){
+          if (article.likes.find(like => like.username === username)) {
             // unlike article if already liked
-            article.likes = article.likes.filter(like => like.username !== username);
+            article.likes = article.likes.filter(
+              (like) => like.username !== username
+            );
+            article;
           } else {
             article.likes.push({
               username,
-              createdAt: new Date().toISOString()
-            })
+              createdAt: new Date().toISOString(),
+            });
           }
           await article.save();
           return article;
 
-      } else throw new UserInputError('Article not found');
+        } else throw new UserInputError('Article not found');
+      } else {
+        console.log('updateArticle Authentication Failed')
+        throw new AuthenticationError("You need to be logged in!");
+      }
+
     },
-    
-      
-      
-  
+
+
+
+
+    // Counts the number of likes and comments
+
+
+    //   Subscription: {
+    //     newArticle: {
+    //       notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
+    //     }
+    //   }
   },
-
-  // Counts the number of likes and comments
- 
-
-  //   Subscription: {
-  //     newArticle: {
-  //       notification: (parent, args, { pubsub }) => pubsub.asyncIterator('NEW_ARTICLE')
-  //     }
-  //   }
 };
-
 
 module.exports = resolvers;
 

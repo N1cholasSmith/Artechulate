@@ -11,7 +11,7 @@ function LikeButton({ user, article: { id, likeCount, likes } }) {
 
     useEffect(() => {
         // User can only like if theyre logged in and match user.username
-        if (user && likes.find(like => like.username === user.username)) {
+        if (user && likes.find((like) => like.username === user.username)) {
             setLiked(true)
         } else {
             setLiked(false)

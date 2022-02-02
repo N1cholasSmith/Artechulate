@@ -89,7 +89,7 @@ mutation likeArticle($articleId: ID){
   likeArticle(articleId: $articleId){
     _id
     likes{
-      _id
+      id
       username
     }
     likeCount

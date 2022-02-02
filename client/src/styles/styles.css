@@ -38,6 +38,36 @@
     margin:auto;
 }
 
+/* ARTICLE CARD ======================================================================================== */
+.article-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width:300%;
+    margin:20px
+}
+.article-card-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 10px 0px 10px 0px;
+}
+
+.article-card-body {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.read-more-btn {
+    color: white;
+    margin-top: 20px;
+}
+
+
+
 /* LIKE BUTTON { FOCUS } COLOUR TEAL */
 .ui.teal.button:focus, 
 .ui.teal.buttons .button:focus{
