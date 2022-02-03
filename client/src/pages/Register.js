@@ -50,7 +50,7 @@ function Register(props) {
 
     try {
       const { data } = await registerUser({
-        variables: { ...userFormData },
+        variables: {registerInput: { ...userFormData }},
       });
       console.log('checking if register is fetching data')
       // when data comes back from login call the Authorization

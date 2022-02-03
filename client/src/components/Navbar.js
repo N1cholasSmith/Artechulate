@@ -29,14 +29,14 @@ function Navbar() {
             active={activeItem === 'profile'}
             onClick={handleItemClick}
             as={Link}
-            to='Profile'
+            to='/Profile'
           />
           <Menu.Item
             name='feed'
             active={activeItem === 'feed'}
             onClick={handleItemClick}
             as={Link}
-            to='Feed'
+            to='/Feed'
           />
           <Menu.Menu position='right'>
             <Menu.Item
@@ -44,14 +44,14 @@ function Navbar() {
               active={activeItem === 'login'}
               onClick={handleItemClick}
               as={Link}
-              to='Login'
+              to='/Login'
             />
             <Menu.Item
               name='register'
               active={activeItem === 'register'}
               onClick={handleItemClick}
               as={Link}
-              to='Register'
+              to='/Register'
             />
           </Menu.Menu>
       

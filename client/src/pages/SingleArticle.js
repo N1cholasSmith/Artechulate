@@ -1,6 +1,7 @@
 
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState  } from 'react';
+import { useParams } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -15,30 +16,29 @@ import {
     Label,
     Form
 } from 'semantic-ui-react'
-// IMPORTING AUTH AND CONTEXT ===============================================
-import '../styles/styles.css'
-// PICTURES =================================================================
+
+// Components ===============================================================
 import Face from '../assets/images/face.jpg';
 import VR from '../assets/images/VR.jpeg';
-// IMPORTING AUTH AND CONTEXT ===============================================
-import Auth from '../utils/auth';
-// QUERIES ==================================================================
-import { GET_ARTICLE } from '../utils/queries'
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
+// STYLES ===================================================================
+import '../styles/styles.css'
+// IMPORTING AUTH AND CONTEXT ===============================================
+import Auth from '../utils/auth';
+// QUERIES AND MUTATIONS ====================================================
 import { CREATE_COMMENT } from '../utils/mutations';
-
+import { GET_ARTICLE } from '../utils/queries'
 
 function SingleArticle(props) {
     // get post id from the url (params)
     // const articleId = props.match.params.articleId;
-    const articleId = props.articleId;
+    const { articleId } = useParams();
+    console.log(articleId);
 
-    const articleData = data?.getArticle || []
     const user = Auth.getProfile().data
-    const loggedIn = Auth.loggedIn().data
-    console.log(articleData)
-
+    const loggedIn = Auth.loggedIn()
+  
     // CHANGE STATE OF COMMENT FORM ONCE COMMENT IS SUBMITTED
     const commentInputRef = useRef(null)
 
@@ -47,9 +47,12 @@ function SingleArticle(props) {
     // data: {getArticle}
     const { loading, data } = useQuery(GET_ARTICLE, {
         variables: {
-            articleId
+            articleId,
         },
     });
+    const articleData = data?.getArticle || []
+    console.log(articleData)
+
 
     const [createComment] = useMutation(CREATE_COMMENT, {
         update() {
@@ -69,7 +72,7 @@ function SingleArticle(props) {
 
 
     let articleMarkup;
-    if (!articleData) {
+    if (loading) {
         articleMarkup =
             <Segment>
                 <Dimmer active>
@@ -137,7 +140,7 @@ function SingleArticle(props) {
                             </Card.Content>
                         </Card>
                         {/* ADD COMMENT ================================================================================== */}
-                        {user && loggedIn(
+                        {user && loggedIn && (
                             <Card fluid>
                                 <Card.Content>
                                     <p> Post a comment</p>
@@ -165,8 +168,8 @@ function SingleArticle(props) {
                             </Card>
                         )}
                         {/* MAP COMMENTS ================================================================================= */}
-                        {comments.map(comment => (
-                            <Card fluid key={(comment.length)}>
+                        {comments.map((comment) => (
+                            <Card fluid key={comment.length}>
                                 <Card.Content>
                                     {/* IF USER LOGGED IN MATCHES USERNAME OF COMMENT DELETE BUTTON WILL DISPLAY */}
                                     {user && user.username === comment.username && (
@@ -179,15 +182,11 @@ function SingleArticle(props) {
                             </Card>
                         ))}
                     </Grid.Column>
-
-
                 </Grid.Row>
             </Grid>
-        )
+        );
     }
     return articleMarkup;
-}
-
-
+};
 
 export default SingleArticle;
