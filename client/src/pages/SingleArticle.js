@@ -1,6 +1,6 @@
 
-import { useQuery } from '@apollo/client';
-import React, { useState, useEffect } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Container,
     Grid,
@@ -12,7 +12,8 @@ import {
     Card,
     Button,
     Icon,
-    Label
+    Label,
+    Form
 } from 'semantic-ui-react'
 // IMPORTING AUTH AND CONTEXT ===============================================
 import '../styles/styles.css'
@@ -23,53 +24,81 @@ import VR from '../assets/images/VR.jpeg';
 import Auth from '../utils/auth';
 // QUERIES ==================================================================
 import { GET_ARTICLE } from '../utils/queries'
-import { GraphQLDirective } from 'graphql';
 import LikeButton from '../components/LikeButton';
+import DeleteButton from '../components/DeleteButton';
+import { CREATE_COMMENT } from '../utils/mutations';
 
 
-function SingleArticle(props){
-    const articleId = props.match.params.articleId;
-    const isLoggedIn = Auth.loggedIn();
+function SingleArticle(props) {
+    // get post id from the url (params)
+    // const articleId = props.match.params.articleId;
+    const articleId = props.articleId;
 
-    const { getArticle } = useQuery(GET_ARTICLE, {
-        
+    const articleData = data?.getArticle || []
+    const user = Auth.getProfile().data
+    const loggedIn = Auth.loggedIn().data
+    console.log(articleData)
+
+    // CHANGE STATE OF COMMENT FORM ONCE COMMENT IS SUBMITTED
+    const commentInputRef = useRef(null)
+
+    const [comment, setComment] = useState('')
+
+    // data: {getArticle}
+    const { loading, data } = useQuery(GET_ARTICLE, {
         variables: {
             articleId
         },
-    })
-    console.log(getArticle)
+    });
+
+    const [createComment] = useMutation(CREATE_COMMENT, {
+        update() {
+            setComment('')
+            // blurs form placeholder once comment has been submitted
+            commentInputRef.current.blur();
+        },
+        variables: {
+            articleId,
+            body: comment,
+        },
+    });
+
+    function deleteArticleCallback() {
+        props.history.push('/Feed')
+    }
+
 
     let articleMarkup;
-    if(!getArticle){
-        articleMarkup = 
-        <Segment>
-        <Dimmer active>
-          <Loader />
-        </Dimmer>
-        <h1>Loading Article...</h1>
-      </Segment>
+    if (!articleData) {
+        articleMarkup =
+            <Segment>
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>
+                <h1>Loading Article...</h1>
+            </Segment>
     } else {
-        const { 
-            title, 
-            _id : id, 
-            body,  
-            createdAt, 
+        const {
+            title,
+            _id: id,
+            body,
+            // createdAt, 
             username,
             comments,
             likes,
             likeCount,
-            commentCount, 
-        } = getArticle;
+            commentCount,
+        } = articleData;
 
         articleMarkup = (
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={2}>
-                    <Image 
-                        floated='right'
-                        size='mini'
-                        src={Face}
-                    />
+                        <Image
+                            floated='right'
+                            size='mini'
+                            src={Face}
+                        />
                     </Grid.Column>
                     <Grid.Column width={10}>
                         <Card fluid>
@@ -86,34 +115,79 @@ function SingleArticle(props){
                                     {body}
                                 </Card.Description>
                             </Card.Content>
-                            <hr/>
+                            <hr />
                             <Card.Content extra>
-                                <LikeButton {...isLoggedIn} article={{ id, likeCount, likes }}>
-                                    <Button 
-                                    as='div'
-                                    labelPosition='right'
-                                    onClick={() => console.log('Comment on Post')}
+                                <LikeButton {...user && loggedIn} article={{ id, likeCount, likes }}>
+                                    <Button
+                                        as='div'
+                                        labelPosition='right'
+                                        onClick={() => console.log('Comment on Post')}
                                     >
                                         <Button basic color='blue'>
-                                            <Icon name='comments'/>
+                                            <Icon name='comments' />
                                             <Label basic color='blue' pointing='left'>
                                                 {commentCount}
                                             </Label>
                                         </Button>
-
+                                        {user && user.username === username && (
+                                            <DeleteButton articleId={id} callback={deleteArticleCallback} />
+                                        )}
                                     </Button>
                                 </LikeButton>
                             </Card.Content>
                         </Card>
-              
+                        {/* ADD COMMENT ================================================================================== */}
+                        {user && loggedIn(
+                            <Card fluid>
+                                <Card.Content>
+                                    <p> Post a comment</p>
+                                    <Form>
+                                        <div className='ui action input fluid'>
+                                            <input
+                                                type='text'
+                                                placeholder='comment'
+                                                name='comment'
+                                                value={comment}
+                                                onChange={event => setComment(event.target.value)}
+                                                ref={commentInputRef}
+                                            />
+                                            <button type='submit'
+                                                className='ui button teal'
+                                                // Button disabled if placeholder is empty
+                                                disabled={comment.trim() === ''}
+                                                onClick={createComment}
+                                            >
+                                                Comment
+                                            </button>
+                                        </div>
+                                    </Form>
+                                </Card.Content>
+                            </Card>
+                        )}
+                        {/* MAP COMMENTS ================================================================================= */}
+                        {comments.map(comment => (
+                            <Card fluid key={(comment.length)}>
+                                <Card.Content>
+                                    {/* IF USER LOGGED IN MATCHES USERNAME OF COMMENT DELETE BUTTON WILL DISPLAY */}
+                                    {user && user.username === comment.username && (
+                                        <DeleteButton articleId={id} commentId={id} />
+                                    )}
+                                    <Card.Header>{comment.username}</Card.Header>
+                                    {/* <Card.Meta>{moment(createdAt).fromNow(true)} </Card.Meta> */}
+                                    <Card.Description>{comment.body}</Card.Description>
+                                </Card.Content>
+                            </Card>
+                        ))}
                     </Grid.Column>
-                    
-                    
+
+
                 </Grid.Row>
             </Grid>
         )
     }
-    
+    return articleMarkup;
 }
+
+
 
 export default SingleArticle;

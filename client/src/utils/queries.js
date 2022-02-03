@@ -48,7 +48,7 @@ export const GET_ARTICLES = gql`
 `;
 
 export const GET_ARTICLE = gql`
-  {
+  query getArticle($articleId: String) {
     getArticle (articleId: $articleId) {
       _id
       username

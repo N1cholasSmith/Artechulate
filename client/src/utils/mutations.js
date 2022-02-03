@@ -55,7 +55,7 @@ export const CREATE_ARTICLE = gql`
 
 export const DELETE_ARTICLE = gql`
   mutation deleteArticle($articleId: String!) {
-    removeArticle(articleId: $articleId) {
+    deleteArticle(articleId: $articleId) {
       _id
       username
       email
@@ -95,8 +95,39 @@ mutation likeArticle($articleId: ID){
     likeCount
   }
 }
+`;
 
-`
+export const CREATE_COMMENT = gql`
+  mutation createComment($articleId: String!, $body: String!) {
+    deleteComment(articleId: $articleId, body: $body) {
+      _id
+      body
+      comments {
+        id
+        username
+        createdAt
+        body
+      }
+      commentCount
+    }
+  }
+`;
+
+
+export const DELETE_COMMENT = gql`
+  mutation deleteComment($articleId: ID!, $commentId: ID!) {
+    deleteComment(articleId: $articleId, commentId: $commentId) {
+      _id
+      comments {
+        id
+        username
+        createdAt
+        body
+      }
+      commentCount
+    }
+  }
+`;
 
 
 

@@ -5,6 +5,7 @@ import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
 
 // IMPORT LIKE BUTTON =======================================================
 import  LikeButton  from './LikeButton';
+import DeleteButton from './DeleteButton';
 import '../styles/styles.css';
 // PICTURES =================================================================
 import Face from '../assets/images/face.jpg';
@@ -44,14 +45,14 @@ function ArticleCard({
                 <Card.Description className='article-card-body'>
                     {body}
                 </Card.Description>
-                <Button color='black' className='read-more-btn'>
+                <Button color='black' className='read-more-btn' as={Link} to={`/articles/${id}`}>
                     Read More
                 </Button>
             </Card.Content>
             <Card.Content extra>
-                {/* <div className='ui two buttons'> */}
+          
                     <LikeButton user={user} article={{ id, likes, likeCount}} />
-                    <Button labelPosition='right' as={Link} to={`/articles/${id}`}>
+                    <Button labelPosition='right' as={Link} to={`/article/${id}`}>
                         <Button color='blue' basic>
                             <Icon name='comments' />
                             Comment
@@ -61,16 +62,10 @@ function ArticleCard({
                         </Label>
                     </Button>
                     {/* If users username matches user logged in, then they are shown a delete button */}
-                    {user && user.username === username && (
-                    <Button 
-                        as='div' 
-                        color='red' 
-                        floated='right'
-                        onClick={() => console.log('Delete Post')}>
-                        <Icon name='trash' style={{ margin: 0 }}></Icon>
-                    </Button>
-                    )}
-                {/* </div> */}
+                    {user && user.username === username && <DeleteButton articleId={id} />}
+                     (
+           
+            
             </Card.Content>
         </Card>
     )

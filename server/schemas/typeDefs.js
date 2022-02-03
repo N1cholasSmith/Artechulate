@@ -71,10 +71,12 @@ const typeDefs = gql`
     register(registerInput: RegisterInput): Auth
 
     createArticle(body: String, title: String): Article
+    # CHANGED TO ID from String =========================================================================
     deleteArticle(articleId: String!): User
     updateArticle(id: ID, body: String!, title: String): Article
     savedArticle(input: savedArticle): User
 
+    # CHANGED CREATECOMMENT(ARTICLE: ID  from String) ===================================================
     createComment(articleId: String, body: String): Article
     deleteComment(articleId: ID, commentId: ID): Article
     likeArticle(articleId: ID): Article

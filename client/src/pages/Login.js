@@ -15,9 +15,9 @@ import Auth from '../utils/auth';
 
 function Login(props) {
   // AUTH *******
-  const [userFormData, setUserFormData] = useState({ 
-    username: '', 
-    password: '' 
+  const [userFormData, setUserFormData] = useState({
+    username: '',
+    password: ''
   });
 
   const history = useHistory
@@ -28,8 +28,6 @@ function Login(props) {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, result) {
       console.log(result)
-      // Sends newly registered user to the homepage
-
     },
     onError(err) {
       // returns one object with all errors
@@ -39,8 +37,8 @@ function Login(props) {
   })
 
   function handleClick() {
-    history.push('/');
-    }
+    history.push('/Feed');
+  }
 
   // AUTH *******
   const handleInputChange = (event) => {
@@ -93,9 +91,9 @@ function Login(props) {
         />
 
         <Router>
-        <Button type='submit' primary onClick={handleClick}>
-          Login
-        </Button>
+          <Button type='submit' primary onClick={handleClick}>
+            Login
+          </Button>
         </Router>
       </Form>
       {Object.keys(errors).length > 0 && (
