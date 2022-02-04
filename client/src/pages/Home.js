@@ -1,11 +1,19 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { graphql } from 'graphql';
+import '../styles/styles.css'
+
+import  Hero  from '../components/Hero.js'
 
 function Home() {
     // const { loading, data } = useQuery
   return <div>
-        <h1>Home Page</h1>
+          <Hero />
+
+        <div className='spacer layer2'>
+
+        </div>
+
   </div>;
 }
 

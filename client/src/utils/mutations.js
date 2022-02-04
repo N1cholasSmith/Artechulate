@@ -30,7 +30,7 @@ export const REGISTER_USER = gql`
 
 
 export const CREATE_ARTICLE = gql`
-  mutation createArticle($body: String, $title: String) {
+  mutation createArticle($body: String!, $title: String!) {
     createArticle(body: $body, title: $title) {
       _id
       username
@@ -43,11 +43,11 @@ export const CREATE_ARTICLE = gql`
         username
         body
         createdAt
+        }
         likeCount
         likes {
           id
           username
-        }
       }
     }
   }

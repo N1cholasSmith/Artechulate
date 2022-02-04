@@ -8,57 +8,64 @@ import "../App.css"
 function Navbar() {
 
 
-    const pathname = window.location.pathname;
-    //  /login
-    const path = pathname === '/' ? 'home' : pathname.substring(1)
-    const [activeItem, setActiveItem] = useState(path);
-    const handleItemClick = (e, { name }) => setActiveItem(name)
+  const pathname = window.location.pathname;
+  //  /login
+  const path = pathname === '/' ? 'home' : pathname.substring(1)
+  const [activeItem, setActiveItem] = useState(path);
+  const handleItemClick = (e, { name }) => setActiveItem(name)
 
-    return (
-        <div>
-        <Menu pointing secondary size='massive' color='teal'>
+  return (
+    <div>
+      <Menu pointing secondary size='massive' color='teal'>
+        <Menu.Item
+          name='home'
+          active={activeItem === 'home'}
+          onClick={handleItemClick}
+          as={Link}
+          to='/'
+        />
+        <Menu.Item
+          name='profile'
+          active={activeItem === 'profile'}
+          onClick={handleItemClick}
+          as={Link}
+          to='/Profile'
+        />
+        <Menu.Item
+          name='feed'
+          active={activeItem === 'feed'}
+          onClick={handleItemClick}
+          as={Link}
+          to='/Feed'
+        />
+        <Menu.Menu position='right'>
           <Menu.Item
-            name='home'
-            active={activeItem === 'home'}
+            name='login'
+            active={activeItem === 'login'}
             onClick={handleItemClick}
             as={Link}
-            to='/'
+            to='/Login'
           />
           <Menu.Item
-            name='profile'
-            active={activeItem === 'profile'}
+            name='register'
+            active={activeItem === 'register'}
             onClick={handleItemClick}
             as={Link}
-            to='/Profile'
+            to='/Register'
           />
-          <Menu.Item
-            name='feed'
-            active={activeItem === 'feed'}
-            onClick={handleItemClick}
-            as={Link}
-            to='/Feed'
-          />
-          <Menu.Menu position='right'>
-            <Menu.Item
-              name='login'
-              active={activeItem === 'login'}
-              onClick={handleItemClick}
-              as={Link}
-              to='/Login'
-            />
-            <Menu.Item
-              name='register'
-              active={activeItem === 'register'}
-              onClick={handleItemClick}
-              as={Link}
-              to='/Register'
-            />
-          </Menu.Menu>
-      
-          
-        </Menu>
-      </div>
-    );
+        </Menu.Menu>
+        
+        <div class="tablet mobile only row">
+          <div class="column">
+            <div class="ui menu">
+              <a id="mobile_item" class="item"><i class="bars icon"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </Menu>
+    </div>
+  );
 }
 
 export default Navbar;

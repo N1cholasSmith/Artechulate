@@ -1,20 +1,20 @@
 /* Navbar */
-/* .navbar{
+ .navbar{
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
-.navbar-brand{
+/* .navbar-brand{
     font-size: 45px;
 }
 .navbar-brand:hover{
     transform: scale(1.1);
     transition: all 0.5s ease;
-}
-.navbar-nav{
+} */
+/* .navbar-nav{
     font-size: 30px;
-}
+} */
 .nav-item:hover{
     transform: scale(1.2);
     transition: all 0.5s ease;
@@ -24,6 +24,66 @@
 /* .btn:hover{
     color:white
 } */ 
+
+/* HOME PAGE ================================================================== */
+/* HERO.JS COMPONENT */
+video {
+    object-fit:cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1; 
+}
+
+.hero-container {
+    /* background: url('./assets/images/face.jpg') center center/cover no-repeat; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.2); */
+    object-fit:contain;
+}
+
+.hero-container > h1 {
+    color: #fff;
+    font-size: 150px;
+    margin-top: -150px;
+}
+
+.hero-container > h2 {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 30px;
+}
+
+.hero-btns {
+    margin-top: 32px;
+}
+
+.hero-btns .btn {
+    margin: 6px;
+}
+
+.hero-btns .register-btn {
+    color:rgb(0, 0, 0);
+    background-color: #fff;
+}
+
+.spacer {
+    aspect-ratio: 690/300;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.layer2 {
+    background-image: url('../assets/images/layer2.svg.svg');
+}
+
 
 .page-title{
     display:block !important;
@@ -73,3 +133,46 @@
 .ui.teal.buttons .button:focus{
     background-color: #00b5ad;
 }
+
+/* PROFILE ============================================================================== */
+
+
+/* MEDIA QUERIES ====================================================================== */
+
+@media screen and (max-width: 960px) {
+    .hero-container > h1 {
+        color: #fff;
+        font-size: 70px;
+        margin-top: -160px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-container > h1 {
+        color: #fff;
+        font-size: 50px;
+        margin-top: -160px;
+    }
+
+    .hero-container > h2 {
+        font-size: 25px;
+    }
+
+    btn-mobile {
+        display: block;
+        text-decoration: none;
+    }
+
+    .btn {
+        width: 100%
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -11,15 +11,20 @@ import { GET_ARTICLES } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const ArticleForm = () => {
-    const { values, onChange, onSubmit } = useForm(createArticleCallback, {
-        title: '',
-        body: ''
-    });
-
     const [articleFormData, setArticleFormData] = useState({
         title: '',
         body: ''
     });
+
+    const onChangeFormData = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+
+        setArticleFormData({
+            ...articleFormData,
+            [name]:value
+        })
+    }
 
     const [createArticle, { error }] = useMutation(CREATE_ARTICLE, {
         update(proxy, result) {
@@ -34,12 +39,14 @@ const ArticleForm = () => {
             data.getArticles = [result.data.createArticle, ...data.getArticles]
             proxy.writeQuery({ query: CREATE_ARTICLE, data })
             console.log(articleFormData)
-            setArticleFormData();
+            setArticleFormData({title: '', body: ''});
         }
     });
 
-    function createArticleCallback() {
-        createArticle()
+    function onSubmit(event) {
+        event.preventDefault();
+        // const {body, title} = articleFormData
+        createArticle({variables: {...articleFormData} })
     }
 
     return (
@@ -50,7 +57,7 @@ const ArticleForm = () => {
                         <Form.Input
                             placeholder='Title'
                             name='title'
-                            onChange={onChange}
+                            onChange={onChangeFormData}
                             value={articleFormData.title}
                             error={error ? true : false}
                         />
@@ -58,7 +65,7 @@ const ArticleForm = () => {
                         <TextArea
                             placeholder='Article Body'
                             name='body'
-                            onChange={onChange}
+                            onChange={onChangeFormData}
                             value={articleFormData.body}
                             error={error ? true : false}
                         />
