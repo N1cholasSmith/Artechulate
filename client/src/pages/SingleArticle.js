@@ -1,6 +1,6 @@
 
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useRef, useState  } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     Container,
@@ -14,7 +14,8 @@ import {
     Button,
     Icon,
     Label,
-    Form
+    Form,
+    Feed
 } from 'semantic-ui-react'
 
 // Components ===============================================================
@@ -38,7 +39,7 @@ function SingleArticle(props) {
 
     const user = Auth.getProfile().data
     const loggedIn = Auth.loggedIn()
-  
+
     // CHANGE STATE OF COMMENT FORM ONCE COMMENT IS SUBMITTED
     const commentInputRef = useRef(null)
 
@@ -97,15 +98,16 @@ function SingleArticle(props) {
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={2}>
-                        <Image
-                            floated='right'
-                            size='mini'
-                            src={Face}
-                        />
+
                     </Grid.Column>
                     <Grid.Column width={10}>
                         <Card fluid>
                             <Card.Content>
+                                <Image
+                                    floated='right'
+                                    size='mini'
+                                    src={Face}
+                                />
                                 <Card.Header>{username}</Card.Header>
                                 {/* <Card.Meta as={Link} to={`/articles/${id}`}>
                                 {moment(createdAt).fromNow(true)} 
@@ -114,29 +116,27 @@ function SingleArticle(props) {
                                 <Card.Description className='article-card-title'>
                                     {title}
                                 </Card.Description>
-                                <Card.Description className='article-card-body'>
+                                <Card.Description className='single-article-card-body'>
                                     {body}
                                 </Card.Description>
                             </Card.Content>
-                            <hr />
+                         
                             <Card.Content extra>
-                                <LikeButton {...user && loggedIn} article={{ id, likeCount, likes }}>
-                                    <Button
-                                        as='div'
-                                        labelPosition='right'
-                                        onClick={() => console.log('Comment on Post')}
-                                    >
-                                        <Button basic color='blue'>
-                                            <Icon name='comments' />
-                                            <Label basic color='blue' pointing='left'>
-                                                {commentCount}
-                                            </Label>
-                                        </Button>
-                                        {user && user.username === username && (
-                                            <DeleteButton articleId={id} callback={deleteArticleCallback} />
-                                        )}
+                                <LikeButton article={{ id, likeCount, likes }}></LikeButton>
+                                <Button labelPosition='right' onClick={() => console.log('Comment on Post')}>
+                                    <Button color='blue' basic >
+                                        <Icon name='comments' />
+                                        Comments
                                     </Button>
-                                </LikeButton>
+                                    <Label basic color='blue' pointing='left'>
+                                        {commentCount}
+                                    </Label>
+                                </Button>
+                                {user && user.username === username && (
+                                    <DeleteButton articleId={id} callback={deleteArticleCallback} />
+                                )}
+
+
                             </Card.Content>
                         </Card>
                         {/* ADD COMMENT ================================================================================== */}
@@ -168,19 +168,23 @@ function SingleArticle(props) {
                             </Card>
                         )}
                         {/* MAP COMMENTS ================================================================================= */}
+
                         {comments.map((comment) => (
+
                             <Card fluid key={comment.length}>
                                 <Card.Content>
                                     {/* IF USER LOGGED IN MATCHES USERNAME OF COMMENT DELETE BUTTON WILL DISPLAY */}
                                     {user && user.username === comment.username && (
-                                        <DeleteButton articleId={id} commentId={id} />
+                                        <DeleteButton className='delete-btn' articleId={id} commentId={id} />
                                     )}
                                     <Card.Header>{comment.username}</Card.Header>
                                     {/* <Card.Meta>{moment(createdAt).fromNow(true)} </Card.Meta> */}
                                     <Card.Description>{comment.body}</Card.Description>
                                 </Card.Content>
                             </Card>
+
                         ))}
+
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

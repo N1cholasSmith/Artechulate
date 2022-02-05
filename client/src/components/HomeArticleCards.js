@@ -5,24 +5,46 @@ import { Card, Icon, Label, Image, Button, Container } from 'semantic-ui-react';
 
 // COMPONENTS ===============================================================
 import '../styles/styles.css';
+import HomeFeaturedArticleCards from '../components/HomeFeaturedArticleCards'
 // PICTURES =================================================================
 import Face from '../assets/images/face.jpg';
+import AI from '../assets/images/AI.jpeg'
+import ML from '../assets/images/ML.jpeg'
+import SM from '../assets/images/smart-city.jpeg'
 
 // AUTH =====================================================================
 // import Auth from '../utils/auth';
 
-const items = [
+const articles = [
     {
-        header: 'Project Report - April',
-        description:
+        username: '@JimmyRyan',
+        profilePic: Face,
+        img: ML,
+        title:'AI in 2022',
+        body:
             'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        meta: 'ROI: 30%',
+        rating: '9.7/10',
+        articleId: '1'
     },
     {
-        header: 'Project Report - May',
-        description:
-            'Bring to the table win-win survival strategies to ensure proactive domination.',
-        meta: 'ROI: 34%',
+        username: '@SethV',
+        profilePic: Face,
+        img: AI,
+        title:'AI in 2022',
+        body:
+            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+        rating: '',
+        articleId: '2'
+    },
+    {
+        username: '@digbickBot',
+        profilePic: Face,
+        img: SM,
+        title:'AI in 2022',
+        body:
+            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+        rating: '',
+        articleId: '3'
     },
 ]
 
@@ -32,31 +54,30 @@ const items = [
 function HomeArticleCards() {
     return (
         <>
-            <h1 className='text-center'>Featured Articles</h1>
-
-            <div class="ui centered cards">
-            <div class="ui card">
-                    <div class="content">
-                        <div class="header">Project Report - April</div>
-                        <div class="meta">ROI: 30%</div>
-                        <div class="description">Leverage agile frameworks to provide a robust synopsis for high level overviews.</div>
-                    </div>
-                </div>
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">Project Report - April</div>
-                        <div class="meta">ROI: 30%</div>
-                        <div class="description">Leverage agile frameworks to provide a robust synopsis for high level overviews.</div>
-                    </div>
-                </div>
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">Project Report - May</div>
-                        <div class="meta">ROI: 34%</div>
-                        <div class="description">Bring to the table win-win survival strategies to ensure proactive domination.</div>
-                    </div>
-                </div>
+         <section id="home-article-cards">
+        <div className="container m-2 p-1"/>
+          <div className="row mb-5">
+            <div className="col-12">
+              <h1 className="fw-bold text-center featured-articles mb-4">Featured Articles</h1>
+              {/* <hr/> */}
             </div>
+            <div className="row d-flex justify-content-center">
+                {articles.map( (article, index) => (
+                    <HomeFeaturedArticleCards 
+                    key={index} 
+                    username={article.username} 
+                    profilePic={article.profilePic}
+                    img={article.img} 
+                    title={article.title}
+                    body={article.body}
+                    rating={article.rating}
+                    articleId={article.articleId}
+                    />
+                    )  
+                )}
+            </div>
+          </div>
+      </section>
 
         </>
     )

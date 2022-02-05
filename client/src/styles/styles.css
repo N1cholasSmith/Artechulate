@@ -15,6 +15,7 @@
 }
 
 .tech {
+    font-style: italic;
     color: turquoise;
 }
 
@@ -72,6 +73,7 @@ video {
 
 .hero-container > h2 {
     font-weight: bold;
+    font-style: italic;
     margin-top: 20px;
     font-size: 30px;
 }
@@ -125,8 +127,9 @@ video {
 }
 
 /* REGISTER PAGE ======================================================================================= */
+/* BEING OVER RIDDEN BELOW */
 .form-container {
-    width:50%;
+    width:80%;
     margin:auto;
 }
 .about-p {
@@ -135,11 +138,21 @@ video {
 }
 
 /* HOME ABOUT SECTION ================================================================================== */
-.about-title {
+.about-title,
+.featured-articles {
     font-size: 45px;
     font-weight: bolder;
     font-style: italic;
 }
+
+.home-article-cards {
+    margin-top: 15px;
+}
+
+.featured-article-card {
+    margin: 10px;
+}
+
 
 /* FEED PAGE =========================================================================================== */
 /* ARTICLE FORM ====================================== */
@@ -153,7 +166,7 @@ video {
     justify-content: center;
     
     flex-direction: column;
-    width:80%;
+    width:75%;
     margin:20px;
     margin-left: 10%;
 }
@@ -185,6 +198,20 @@ video {
 .ui.teal.button:focus, 
 .ui.teal.buttons .button:focus{
     background-color: #00b5ad;
+}
+
+/* SINGLE ARTICLE CARD - COMMENT FEED =================== */
+.feed-comments {
+    padding: 7px;
+}
+
+.comment-username {
+    font-weight: bold;
+}
+
+.single-article-card-body {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 /* PROFILE ============================================================================== */

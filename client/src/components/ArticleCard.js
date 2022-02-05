@@ -64,7 +64,7 @@ function ArticleCard({
                     </Button>
                     {/* If users username matches user logged in, then they are shown a delete button */}
                     {user && user.username === username && <DeleteButton articleId={id} />}
-                     (
+                     
            
             
             </Card.Content>
