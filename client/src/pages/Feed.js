@@ -33,14 +33,14 @@ const Feed = () => {
 
     return (
         <>
-            <Grid columns={3}>
+            <Grid columns={1}>
                 <Grid.Row className='page-title'>
                     <h1>Latest Articles</h1>
                 </Grid.Row>
                 <Grid.Row>
                     {/* if logged in show this form */}
                     {isLoggedIn && (
-                        <GridColumn>
+                        <GridColumn className='form-container'>
                             <ArticleForm>{/* component */}</ArticleForm>
                         </GridColumn>
                     )}

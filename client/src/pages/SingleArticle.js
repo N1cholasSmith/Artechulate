@@ -51,7 +51,7 @@ function SingleArticle(props) {
         },
     });
     const articleData = data?.getArticle || []
-    console.log(articleData)
+    // console.log(articleData)
 
 
     const [createComment] = useMutation(CREATE_COMMENT, {

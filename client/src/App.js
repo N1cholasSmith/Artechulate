@@ -47,7 +47,7 @@ function App() {
     // Conneting to ApolloProvider Client so anything below the client in the tree can use the query hook
     <ApolloProvider client={client}>
       <Router>
-      <div className='ui container'>
+    
         <Navbar />
         <Switch>
           <Route exact path='/'>
@@ -70,7 +70,7 @@ function App() {
           </Route> 
           <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
         </Switch>
-      </div>
+      
       </Router>
     </ApolloProvider>
   );

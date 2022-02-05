@@ -1,13 +1,17 @@
 import React from 'react';
-import '../App'
 import HeroOne from '../assets/videos/hero1.mp4'
 import { Button } from 'semantic-ui-react'
 
+
+
+
+
 function Hero() {
+    
     return (
         <>
             <div className='hero-container'>
-                <video src={HeroOne} className='hero-video' autoPlay loop muted />
+                <video src={HeroOne} className='hero-video video' autoPlay loop muted defaultplayback={0.1} />
                 <h1>Artechulate</h1>
                 <h2>The Information Hub for Articulating Technical Articles</h2>
 
@@ -19,16 +23,11 @@ function Hero() {
                         REGISTER
                     </Button>
                 </div>
-
-
             </div>
+            <div className='spacer1 layer3'></div>
 
-            <script>
-                let video = document.querySelector('video');
+           
 
-                {/* // Set the default playing speed */}
-                video.defaultPlaybackRate = 0.2
-            </script>
         </>
     )
 }

@@ -98,8 +98,8 @@ mutation likeArticle($articleId: ID){
 `;
 
 export const CREATE_COMMENT = gql`
-  mutation createComment($articleId: String!, $body: String!) {
-    deleteComment(articleId: $articleId, body: $body) {
+  mutation createComment($articleId: ID, $body: String) {
+    createComment(articleId: $articleId, body: $body) {
       _id
       body
       comments {

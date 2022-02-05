@@ -22,6 +22,7 @@ function LikeButton({ user, article: { id, likeCount, likes } }) {
         variables: { articleId: id}
     });
 
+   
     // IF user is logged in and liked (DISPLAY = solid)
     // if user is logged in but hasnt liked (DISPLAY = Basic outlined)
     // IF user likes but isnt logged in, they will be redirect to the /login page

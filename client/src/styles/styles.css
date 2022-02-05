@@ -1,34 +1,51 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
 /* Navbar */
- .navbar{
+/* Menu {
+    background-color: #fff;
+} */
+.navbar{
     position: sticky;
     top: 0;
     z-index: 1;
+    background-color: transparent;
 }
 
-/* .navbar-brand{
+.tech {
+    color: turquoise;
+}
+
+.feed-nav {
+    color: turquoise;
+}
+ .navbar-brand{
     font-size: 45px;
 }
 .navbar-brand:hover{
     transform: scale(1.1);
     transition: all 0.5s ease;
-} */
-/* .navbar-nav{
-    font-size: 30px;
-} */
+} 
+.navbar-nav{
+    font-size: 22px;
+}
 .nav-item:hover{
     transform: scale(1.2);
     transition: all 0.5s ease;
 }
 
 /* Button */
-/* .btn:hover{
+.btn:hover{
     color:white
-} */ 
+} 
 
-/* HOME PAGE ================================================================== */
-/* HERO.JS COMPONENT */
+/* HOME PAGE ========================================================================================= */
+/* HERO.JS COMPONENT ====================================== */
 video {
     object-fit:cover;
+    top:0;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -80,14 +97,29 @@ video {
     background-size: cover;
 }
 
+.spacer1 {
+    margin-top: -70px;
+    aspect-ratio: 690/100;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.layer3 {
+    background-image: url('../assets/images/layer3.svg');
+}
+
 .layer2 {
     background-image: url('../assets/images/layer2.svg.svg');
+    /* width: auto; */
 }
 
 
 .page-title{
     display:block !important;
     text-align: center;
+    font-style: italic;
     font-size: 35px;
     margin-top: 15px;
 }
@@ -97,15 +129,36 @@ video {
     width:50%;
     margin:auto;
 }
+.about-p {
+    margin: 0 5% 0 20%;
+    font-size: 16px;
+}
 
-/* ARTICLE CARD ======================================================================================== */
+/* HOME ABOUT SECTION ================================================================================== */
+.about-title {
+    font-size: 45px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+/* FEED PAGE =========================================================================================== */
+/* ARTICLE FORM ====================================== */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .article-form {
     display: flex;
     justify-content: center;
+    
     flex-direction: column;
-    width:300%;
-    margin:20px
+    width:80%;
+    margin:20px;
+    margin-left: 10%;
 }
+
+/* ARTICLE CARD ====================================== */
 .article-card-title {
     font-weight: bold;
     font-size: 20px;
@@ -136,13 +189,16 @@ video {
 
 /* PROFILE ============================================================================== */
 
-
+.hero-btns .about-me-btn {
+    color:rgb(0, 0, 0);
+    background-color: #fff;
+}
 /* MEDIA QUERIES ====================================================================== */
 
 @media screen and (max-width: 960px) {
     .hero-container > h1 {
         color: #fff;
-        font-size: 70px;
+        font-size: 80px;
         margin-top: -160px;
     }
 }
@@ -155,7 +211,7 @@ video {
     }
 
     .hero-container > h2 {
-        font-size: 25px;
+        font-size: 17px;
     }
 
     btn-mobile {
@@ -167,6 +223,9 @@ video {
         width: 100%
     }
 }
+
+
+
 
 
 
