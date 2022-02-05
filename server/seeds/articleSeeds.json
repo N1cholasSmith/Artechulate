@@ -1,0 +1,78 @@
+[
+    {
+        "articleId": 101,
+        "username": "JimmyRyan",
+        "profilePic": "Face",
+        "img": "ML",
+        "title":"Machine Learning in Space",
+        "body":
+            "Landscaping in space with Machine Learning.",
+        "rating": "9.7/10",
+        "user": [
+      
+            {
+                "id": 101,
+                "username": "JimmyRyan",
+                "email": "Jimmy@gmail.com",
+                "password": "password01"
+            }
+        ]
+    }, 
+    {
+        "articleId": 102,
+        "username": "JimmyRyan",
+        "profilePic": "Face",
+        "img": "ML",
+        "title":"Astro Physics",
+        "body":
+            "Wyatt Meldman Floch worked on the Kepler space craft and implimented machine learning so advanced it could detect alien life.",
+        "rating": "8/10",
+        "user": [
+      
+            {
+                "id": 101,
+                "username": "JimmyRyan",
+                "email": "Jimmy@gmail.com",
+                "password": "password01"
+            }
+        ]
+    },
+    {
+        "articleId": 201,
+        "username": "JimmyRyan",
+        "profilePic": "Face",
+        "img": "ML",
+        "title":"AI in 2022",
+        "body":
+            "Landscaping in space with Machine Learning.",
+        "rating": "9.7/10",
+        "user": [
+      
+            {
+                "id": 201,
+                "username": "SethV",
+                "email": "SethV@gmail.com",
+                "password": "password02"
+            }
+        ]
+    }, 
+    {
+        "articleId": 301,
+        "username": "digbickBot",
+        "profilePic": "Face",
+        "img": "ML",
+        "title":"Web3.0 with Alkimi Exchange",
+        "body":
+            "Alkimi Exchange is revolutionizing ads to incentivize users on the internet whilst transforming your website into a web3.0 platform, all you need is to plug into the API. Alkimi Exchange cryptographically secures raw data which is what sets it apart from the compeition.",
+        "rating": "9.7/10",
+        "user": [
+      
+            {
+                "id": 301,
+                "username": "digbickBot",
+                "email": "digbickBot@gmail.com",
+                "password": "password03"
+            }
+        ]
+    } 
+]
