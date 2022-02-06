@@ -8,7 +8,7 @@ const { typeDefs, resolvers } = require('./schemas');
 require('dotenv').config();
 
 // SUBSCRIPTION ==================================================================================
-const pubsub = new PubSub();
+// const pubsub = new PubSub();
 
 const { authMiddleware } = require('./utils/auth')
 
@@ -18,7 +18,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   // Subscription (pubsub)
-  context: authMiddleware, pubsub
+  context: authMiddleware
   // context: authMiddleware ({ req }) =>({ req, pubsub }),
 });
 
