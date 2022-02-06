@@ -73,7 +73,7 @@ const typeDefs = gql`
     createArticle(body: String, title: String): Article
     # CHANGED TO ID from String =========================================================================
     deleteArticle(articleId: String!): User
-    updateArticle(id: ID, body: String!, title: String): Article
+    updateArticle(id: ID, body: String, title: String): Article
     savedArticle(input: savedArticle): User
 
     # CHANGED CREATECOMMENT(ARTICLE: ID  from String) ===================================================

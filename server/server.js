@@ -1,67 +1,26 @@
 const express = require('express');
 const path = require('path');
-const db = require('./config/connection');
-require('dotenv').config()
 // Import the ApolloServer class
-const { ApolloServer} = require('apollo-server-express')
-const { PubSub } = require('graphql-subscriptions')
+const { ApolloServer, PubSub } = require('apollo-server-express');
+// const { createServer } = require('http');
+const db = require('./config/connection');
+const { typeDefs, resolvers } = require('./schemas');
+require('dotenv').config();
 
 // SUBSCRIPTION ==================================================================================
-//import { createServer } from 'http';
-// import { execute, subscribe } from 'graphql';
-// import { SubscriptionServer } from 'subscriptions-transport-ws';
-// import { makeExecutableSchema } from '@graphql-tools/schema';
-// // creates the sub server
-// const httpServer = createServer(app);
+const pubsub = new PubSub();
 
-// const subscriptionServer = SubscriptionServer.create({
-//   // This is the `schema` we just created.
-//   schema,
-//   // These are imported from `graphql`.
-//   execute,
-//   subscribe,
-// }, {
-//   // This is the `httpServer` we created in a previous step.
-//   server: httpServer,
-//   // Pass a different path here if your ApolloServer serves at
-//   // a different path.
-//   path: '/graphql',
-// });
-
-// const server = new ApolloServer({
-//   schema,
-//   plugins: [{
-//     async serverWillStart() {
-//       return {
-//         async drainServer() {
-//           subscriptionServer.close();
-//         }
-//       };
-//     }
-//   }],
-// });
-
-// const pubsub = new PubSub();
-
-// Import the two parts of a GraphQL schema
-const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth')
-
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const pubsub = new PubSub();
-
-// Create a new instance of an Apollo server with the GraphQL schema
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-// add context to our server so data from the "authMiddleware()" function can passs data to our resolver functions
-  context: authMiddleware, pubsub 
-})
-
-
+  // Subscription (pubsub)
+  context: authMiddleware, pubsub
+  // context: authMiddleware ({ req }) =>({ req, pubsub }),
+});
 
 // Update Express.js to use Apollo server features
 server.applyMiddleware({ app });
@@ -78,7 +37,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-// -----------------------------------------------------------------
+// SUBSCRIPTION =====
+// const httpServer = createServer(app);
+// server.installSubscriptionHandlers(httpServer)
+
+
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);

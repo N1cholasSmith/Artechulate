@@ -108,7 +108,7 @@ function SingleArticle(props) {
                                     size='mini'
                                     src={Face}
                                 />
-                                <Card.Header>{username}</Card.Header>
+                                <Card.Header>@{username}</Card.Header>
                                 {/* <Card.Meta as={Link} to={`/articles/${id}`}>
                                 {moment(createdAt).fromNow(true)} 
                                 </Card.Meta> */}
@@ -122,7 +122,7 @@ function SingleArticle(props) {
                             </Card.Content>
                          
                             <Card.Content extra>
-                                <LikeButton article={{ id, likeCount, likes }}></LikeButton>
+                                <LikeButton user={user} article={{ id, likeCount, likes }}></LikeButton>
                                 <Button labelPosition='right' onClick={() => console.log('Comment on Post')}>
                                     <Button color='blue' basic >
                                         <Icon name='comments' />
@@ -135,7 +135,6 @@ function SingleArticle(props) {
                                 {user && user.username === username && (
                                     <DeleteButton articleId={id} callback={deleteArticleCallback} />
                                 )}
-
 
                             </Card.Content>
                         </Card>

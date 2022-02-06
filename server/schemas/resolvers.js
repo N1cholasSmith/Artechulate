@@ -109,20 +109,15 @@ const resolvers = {
         console.log(context.user)
         console.log('we have context (createArticle')
 
-        // PREVENTS ARTICLES WITH NO CONTENT
-        // if(args.body.trim() === '') {
-        //   throw new Error('Article body must not be empty')
-        // }
-
         const newArticle = await Article.create({
           body,
           user: context.user._id,
           username: context.user.username,
           title: title,
           createdAt: new Date().toISOString(),
-          // comments: [Comment],
-          // likes: [Like],
         });
+
+
         // ******************************* SUBSCRIPTION **********************************
         // context.pubsub.publish('NEW_ARTICLE',{
         //   newArticle: Article
@@ -154,21 +149,19 @@ const resolvers = {
     },
 
     // UPDATE ARTICLE ================================================================================
-    updateArticle: async (parent, args, context) => {
-      console.log(args)
+    updateArticle: async (parent, {id, body, title}, context) => {
+      console.log(id)
       console.log('updateArticle resolver hit')
       // let { body, title } = updateArticle 
 
-      if (context.user) {
+       if (context.user) {
         console.log(context.user)
         console.log('We have context (updateArticle)')
-        const updateArticle = await Article.findOneAndUpdate(
-          { _id: context.user._id },
+        const updateArticle = await Article.findOneAndUpdate( 
+          { _id: id },
           {
-            $set: {
-              article: body,
-              article: title,
-            },
+            body,
+            title,
           },
           {
             new: true,
@@ -181,7 +174,7 @@ const resolvers = {
 
       } else {
         console.log('updateArticle Authentication Failed')
-        // throw new AuthenticationError("You need to be logged in!"); 
+        throw new AuthenticationError("You need to be logged in!"); 
       }
     },
 
