@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { graphql } from 'graphql';
 import '../styles/styles.css'
 
+
 // COMPONENTS ===================================================================================================
 import Hero from '../components/Hero.js'
 import HomeAbout from '../components/HomeAbout'

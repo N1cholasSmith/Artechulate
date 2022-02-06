@@ -51,31 +51,39 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
- 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous">
-    </script>
-      
-     <!-- Navbar Scroll -->  
-    <script>
-      window.onscroll = function () { scrollFunction() };
+  <script>
+    let tl = gsap.timeline({ Defaults: { Easing: Expo.EaseOut } });
 
-      function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 150) {
-          document.getElementById("navbar").style.backgroundColor = "white";
-        } else {
-          document.getElementById("navbar").style.backgroundColor = "transparent";
-        }
+    tl.from.to('.text-reveal', { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', y: 0, stagger: 0.3, duration: 1 }, "-=2.9")
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+  <!-- Navbar Scroll -->
+  <script>
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 150) {
+        document.getElementById("navbar").style.backgroundColor = "white";
+      } else {
+        document.getElementById("navbar").style.backgroundColor = "transparent";
       }
-    </script> 
-    <!-- endbower -->
-    <!-- endbuild -->
+    }
+  </script>
+  <!-- endbower -->
+  <!-- endbuild -->
 </body>
 
 </html>

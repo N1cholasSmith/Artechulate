@@ -3,6 +3,30 @@
 	padding: 0;
 }
 
+/* ANIMATION================== */
+ /* svg {
+    width: 1em;
+    margin: 2em auto;
+    display: block;
+    /* Hidden as site initially loads */
+    /* clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); */
+/* }  */
+ 
+
+
+/* .text-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: all 1.5s;
+    transform: translateY(-3em);
+} */
+
+/* .btn-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    opacity: 0;
+    transform: translateY(2em);
+} */
+
+
 /* Navbar */
 /* Menu {
     background-color: #fff;
