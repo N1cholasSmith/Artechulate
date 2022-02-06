@@ -3,39 +3,14 @@
 	padding: 0;
 }
 
-/* ANIMATION================== */
- /* svg {
-    width: 1em;
-    margin: 2em auto;
-    display: block;
-    /* Hidden as site initially loads */
-    /* clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); */
-/* }  */
- 
-
-
-/* .text-reveal {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    transition: all 1.5s;
-    transform: translateY(-3em);
-} */
-
-/* .btn-reveal {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    opacity: 0;
-    transform: translateY(2em);
-} */
-
-
 /* Navbar */
-/* Menu {
-    background-color: #fff;
-} */
+
 .navbar{
     position: sticky;
     top: 0;
     z-index: 1;
     background-color: transparent;
+    padding: 0;
 }
 
 .tech {
@@ -74,25 +49,24 @@ video {
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: -1; 
+    z-index: -2; 
 }
 
 .hero-container {
-    /* background: url('./assets/images/face.jpg') center center/cover no-repeat; */
     height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.2); */
     object-fit:contain;
 }
 
 .hero-container > h1 {
     color: #fff;
-    font-size: 150px;
+    font-size: 200px;
     margin-top: -150px;
+    font-weight: 900;
 }
 
 .hero-container > h2 {
@@ -114,6 +88,28 @@ video {
     color:rgb(0, 0, 0);
     background-color: #fff;
 }
+
+/* ANIMATION================== */
+/* svg {
+    width: 1em;
+    margin: 2em auto;
+    display: block; */
+    /* Hidden as site initially loads  */
+    /* clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+}   */
+ 
+/* .text-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: all 1.5s;
+    transform: translateY(-3em);
+}
+
+.btn-reveal {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    opacity: 0;
+    transform: translateY(2em);
+} */
+
 
 .spacer {
     aspect-ratio: 690/300;

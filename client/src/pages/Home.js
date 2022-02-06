@@ -19,7 +19,6 @@ function Home() {
       <HomeArticleCards />
     </div>
     <Footer />
-    
 
   </div>;
 }

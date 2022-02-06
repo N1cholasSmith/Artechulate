@@ -22,49 +22,7 @@ function Navigation() {
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   return (
-    // <Sticky>
-    //         <Menu pointing secondary size='massive' color='teal'>
-    //           <Menu.Item
-    //             name='home'
-    //             active={activeItem === 'home'}
-    //             onClick={handleItemClick}
-    //             as={Link}
-    //             to='/'
-    //           />
-    //           <Menu.Item
-    //             name='profile'
-    //             active={activeItem === 'profile'}
-    //             onClick={handleItemClick}
-    //             as={Link}
-    //             to='/Profile'
-    //           />
-    //           <Menu.Item
-    //             name='feed'
-    //             active={activeItem === 'feed'}
-    //             onClick={handleItemClick}
-    //             as={Link}
-    //             to='/Feed'
-    //           />
-    //           <Menu.Menu position='right'>
-    //             <Menu.Item
-    //               name='login'
-    //               active={activeItem === 'login'}
-    //               onClick={handleItemClick}
-    //               as={Link}
-    //               to='/Login'
-    //             />
-    //             <Menu.Item
-    //               name='register'
-    //               active={activeItem === 'register'}
-    //               onClick={handleItemClick}
-    //               as={Link}
-    //               to='/Register'
-    //             />
-    //           </Menu.Menu>
-    //         </Menu>
-    // </Sticky >
- 
-      <nav className="navbar navbar-expand-lg navbar-light" id="navbar">
+      <nav className="navbar navbar-expand-sm navbar-light" id="navbar">
         <div className="container-fluid">
           <a className="navbar-brand fw-bold" href="#project">Ar<span className='tech'>tech</span>ulate</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
