@@ -162,6 +162,25 @@ video {
     margin: 10px;
 }
 
+/* Featured Articles ================================= */
+.featured-card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating {
+    font-size: 13px;
+}
+
+.featured-card-rating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    line-height: 1.6;
+    font-weight: 700;
+    font-style: italic;
+}
 /* HOME FOOTER SECTION ================================*/
 .footer-container {
     background-color: rgb(0, 0, 0);
@@ -309,8 +328,13 @@ video {
 
 /* REGISTER PAGE ======================================================================================= */
 /* BEING OVER RIDDEN BELOW */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .form-container {
-    width:80%;
+    width:100%;
     margin:auto;
 }
 .about-p {
@@ -318,6 +342,14 @@ video {
     font-size: 16px;
 }
 
+.register-background {
+    object-fit:cover;
+    top:0;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: -2; 
+}
 
 /* FEED PAGE =========================================================================================== */
 /* ARTICLE FORM ====================================== */
