@@ -3,9 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-    Container,
     Grid,
-    GridColumn,
     Image,
     Loader,
     Dimmer,

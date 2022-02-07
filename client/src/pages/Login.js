@@ -96,7 +96,7 @@ function Login(props) {
           />
 
           <Router>
-            <Button type='submit' primary onClick={handleClick}>
+            <Button type='submit' inverted primary onClick={handleClick}>
               Login
             </Button>
           </Router>

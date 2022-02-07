@@ -114,7 +114,7 @@ function Register(props) {
             onChange={handleInputChange}
           />
           <Router>
-            <Button type='submit' primary onClick={handleClick}>
+            <Button type='submit' inverted primary onClick={handleClick}>
               Register
             </Button>
           </Router>

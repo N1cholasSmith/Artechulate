@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 
 export default function HomeFeaturedArticleCards({ profilePic, username, title, img, body, rating }) {
     return (

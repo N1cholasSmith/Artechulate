@@ -362,8 +362,6 @@ video {
     z-index: -2; 
 }
 
-/* LOGIN PAGE ========================================================================================== */
-
 /* FEED PAGE =========================================================================================== */
 /* ARTICLE FORM ====================================== */
 .form-container {
@@ -429,6 +427,18 @@ video {
 .hero-btns .about-me-btn {
     color:rgb(0, 0, 0);
     background-color: #fff;
+}
+
+.featured-article-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.profile-featured-article-card {
+    margin-bottom: 40px;
 }
 /* MEDIA QUERIES ====================================================================== */
 @media screen and (max-width:1000px) {
