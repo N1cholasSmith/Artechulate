@@ -154,6 +154,11 @@ video {
     font-style: italic;
 }
 
+.about-p {
+    margin: 0 5% 0 20%;
+    font-size: 16px;
+}
+
 .home-article-cards {
     margin-top: 15px;
 }
@@ -326,20 +331,26 @@ video {
     margin-bottom: 16px;
 }
 
-/* REGISTER PAGE ======================================================================================= */
+/* REGISTER/LOGIN PAGE ======================================================================================= */
 /* BEING OVER RIDDEN BELOW */
+.login-container,
 .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
-.form-container {
-    width:100%;
+.login-form-container,
+.register-form-container {
+    width:35%;
     margin:auto;
 }
-.about-p {
-    margin: 0 5% 0 20%;
-    font-size: 16px;
+
+.login-title,
+.register-title {
+    font-size: 35px;
+    color: #fff;
+    font-style: italic;
 }
 
 .register-background {
@@ -350,6 +361,8 @@ video {
     position: absolute;
     z-index: -2; 
 }
+
+/* LOGIN PAGE ========================================================================================== */
 
 /* FEED PAGE =========================================================================================== */
 /* ARTICLE FORM ====================================== */

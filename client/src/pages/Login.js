@@ -10,8 +10,9 @@ import { LOGIN_USER } from '../utils/mutations';
 // AUTH *******
 import Auth from '../utils/auth';
 
-// IMPORT HOOK
-// import { useForm } from '../utils/hooks';
+// COMPONENTS
+import RegisterBackground from '../assets/images/register.jpeg'
+
 
 function Login(props) {
   // AUTH *******
@@ -68,43 +69,48 @@ function Login(props) {
   };
 
   return (
-    <div className="form-container">
-      <Form noValidate onSubmit={handleFormSubmit} className={loading ? 'loading' : ''}>
-        <h1>Login</h1>
-        <Form.Input
-          label='Username'
-          placeholder='Username'
-          name='username'
-          type='text'
-          value={userFormData.username}
-          error={errors.username ? true : false}
-          onChange={handleInputChange}
-        />
-        <Form.Input
-          label='Password'
-          placeholder='Password'
-          name='password'
-          type='password'
-          value={userFormData.password}
-          error={errors.password ? true : false}
-          onChange={handleInputChange}
-        />
+    <div className='login-container'>
+      <div>
+        <img className='register-background' src={RegisterBackground} alt='lightbulb' />
+      </div>
+      <div className="login-form-container">
+        <Form noValidate onSubmit={handleFormSubmit} className={loading ? 'loading' : ''}>
+          <h1 className='login-title'>Login</h1>
+          <Form.Input
+            label='Username'
+            placeholder='Username'
+            name='username'
+            type='text'
+            value={userFormData.username}
+            error={errors.username ? true : false}
+            onChange={handleInputChange}
+          />
+          <Form.Input
+            label='Password'
+            placeholder='Password'
+            name='password'
+            type='password'
+            value={userFormData.password}
+            error={errors.password ? true : false}
+            onChange={handleInputChange}
+          />
 
-        <Router>
-          <Button type='submit' primary onClick={handleClick}>
-            Login
-          </Button>
-        </Router>
-      </Form>
-      {Object.keys(errors).length > 0 && (
-        <div className='ui error message'>
-          <ul className='list'>
-            {Object.values(errors).map((value, index) => (
-              <li key={index}>{value}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+          <Router>
+            <Button type='submit' primary onClick={handleClick}>
+              Login
+            </Button>
+          </Router>
+        </Form>
+        {Object.keys(errors).length > 0 && (
+          <div className='ui error message'>
+            <ul className='list'>
+              {Object.values(errors).map((value, index) => (
+                <li key={index}>{value}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

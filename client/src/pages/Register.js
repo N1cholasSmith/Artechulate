@@ -6,10 +6,8 @@ import '../styles/styles.css'
 
 // REGISTER MUTATION
 import { REGISTER_USER } from '../utils/mutations';
-
 // AUTH *******
 import Auth from '../utils/auth';
-
 // COMPONENTS
 import RegisterBackground from '../assets/images/register.jpeg'
 
@@ -37,7 +35,7 @@ function Register(props) {
     // variables: values
   })
 
-  // AUTH *******
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -71,12 +69,6 @@ function Register(props) {
     history.push('/Feed');
   }
 
-
-  // function registerUsers() {
-  //   registerUser()
-  // }
-
-
   return (
     <div className='register-container'>
       <div>
@@ -84,7 +76,7 @@ function Register(props) {
       </div>
       <div className="register-form-container">
         <Form onSubmit={handleFormSubmit} noValidate className={loading ? 'loading' : ''}>
-          <h1 >Register</h1>
+          <h1 className='register-title'>Register</h1>
           <Form.Input
             label='Username'
             placeholder='Username'
@@ -140,7 +132,5 @@ function Register(props) {
     </div>
   );
 }
-
-
 
 export default Register;
