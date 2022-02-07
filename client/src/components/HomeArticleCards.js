@@ -15,6 +15,7 @@ import SM from '../assets/images/smart-city.jpeg'
 // AUTH =====================================================================
 // import Auth from '../utils/auth';
 
+// HARD CODED FOR EXAMPLE - Further implimentation would be to insert an article ID and the information would be displayed dynamically
 const articles = [
     {
         username: '@JimmyRyan',

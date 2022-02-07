@@ -2,8 +2,9 @@ import React from 'react';
 import { Card, Image, Button } from 'semantic-ui-react';
 // Components ===============================================================
 import Face from '../assets/images/face.jpg';
-import AI from '../assets/images/AI.jpeg'
+import AI from '../assets/images/ML.jpeg'
 
+// HARD CODED FOR EXAMPLE - RAN SHORT ON TIME
 function ProfileAbout() {
     return (
         <>

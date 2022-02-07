@@ -7,7 +7,7 @@ import ProfileAbout from '../components/ProfileAbout';
 import Footer from '../components/Footer'
 
 // AUTH =====================================================================
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 
 function Profile() {
