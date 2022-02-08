@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 // Import the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
-const passport = require('passport')
+
 const db = require('./config/connection');
 const { typeDefs, resolvers } = require('./schemas');
 require('dotenv').config();
@@ -24,6 +24,7 @@ server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {

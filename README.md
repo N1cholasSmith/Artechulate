@@ -38,6 +38,7 @@ Artechulate solves the trilemma of bringing in new users, motivating content cre
 - GraphQL
 - Mongoose ODM
 - Google Analytics
+- SVG
 - Google Single Signature Sign in
 - PWB
 
