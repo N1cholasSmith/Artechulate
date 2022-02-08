@@ -18,11 +18,11 @@ function LikeButton({ user, article: { id, likeCount, likes } }) {
         }
     }, [user, likes]);
 
-    const[likeArticle] = useMutation(LIKE_ARTICLE, {
-        variables: { articleId: id}
+    const [likeArticle] = useMutation(LIKE_ARTICLE, {
+        variables: { articleId: id }
     });
 
-   
+
     // IF user is logged in and liked (DISPLAY = solid)
     // if user is logged in but hasnt liked (DISPLAY = Basic outlined)
     // IF user likes but isnt logged in, they will be redirect to the /login page
@@ -37,7 +37,7 @@ function LikeButton({ user, article: { id, likeCount, likes } }) {
                 <Icon name='heart' />
                 Like
             </Button>
-        ) 
+        )
     ) : (
         <Button as={Link} to='/login' color='teal' basic>
             <Icon name='heart' />

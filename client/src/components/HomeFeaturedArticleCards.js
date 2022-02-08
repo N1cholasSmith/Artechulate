@@ -26,9 +26,9 @@ export default function HomeFeaturedArticleCards({ profilePic, username, title, 
                         </Button>
                         <div className='rating'>
                             Rating
-                        <Card.Description className='featured-card-rating'>
-                            {rating}
-                        </Card.Description>
+                            <Card.Description className='featured-card-rating'>
+                                {rating}
+                            </Card.Description>
                         </div>
                     </div>
                 </Card.Content>

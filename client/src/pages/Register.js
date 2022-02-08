@@ -26,7 +26,7 @@ function Register(props) {
   const history = useHistory
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, {data: { register: userData}}) {
+    update(proxy, { data: { register: userData } }) {
       context.login(userData)
     },
     onError(err) {
@@ -37,7 +37,7 @@ function Register(props) {
     // variables: values
   })
 
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
@@ -74,7 +74,7 @@ function Register(props) {
   return (
     <div className='register-container'>
       <div>
-        <img className='register-background' src={RegisterBackground} alt='lightbulb'/>
+        <img className='register-background' src={RegisterBackground} alt='lightbulb' />
       </div>
       <div className="register-form-container">
         <Form onSubmit={handleFormSubmit} noValidate className={loading ? 'loading' : ''}>

@@ -4,7 +4,6 @@ import {
     Container,
     Grid,
     GridColumn,
-    Image,
     Transition,
 } from 'semantic-ui-react'
 // IMPORTING AUTH AND CONTEXT ===============================================

@@ -26,11 +26,10 @@ const userSchema = new Schema(
     createdAt: {
       type: String
     },
-    
+
     // set savedArticles to be an array of data that adheres to the articleSchema
     savedArticles: [articleSchema],
   },
-  // set this to use virtual below
   {
     toJSON: {
       virtuals: true,

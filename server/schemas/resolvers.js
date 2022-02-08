@@ -149,15 +149,15 @@ const resolvers = {
     },
 
     // UPDATE ARTICLE ================================================================================
-    updateArticle: async (parent, {id, body, title}, context) => {
+    updateArticle: async (parent, { id, body, title }, context) => {
       console.log(id)
       console.log('updateArticle resolver hit')
       // let { body, title } = updateArticle 
 
-       if (context.user) {
+      if (context.user) {
         console.log(context.user)
         console.log('We have context (updateArticle)')
-        const updateArticle = await Article.findOneAndUpdate( 
+        const updateArticle = await Article.findOneAndUpdate(
           { _id: id },
           {
             body,
@@ -174,7 +174,7 @@ const resolvers = {
 
       } else {
         console.log('updateArticle Authentication Failed')
-        throw new AuthenticationError("You need to be logged in!"); 
+        throw new AuthenticationError("You need to be logged in!");
       }
     },
 

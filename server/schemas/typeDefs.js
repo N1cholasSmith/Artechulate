@@ -22,7 +22,6 @@ const typeDefs = gql`
     likes: [Like]
     commentCount: Int
     likeCount: Int
-
     user: User
   }
 

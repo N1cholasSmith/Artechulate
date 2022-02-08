@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Form, Button, TextArea } from 'semantic-ui-react';
 import { useMutation } from "@apollo/client";
 // MUTATION
 import { CREATE_ARTICLE } from "../utils/mutations";
-
+// JODIT TEXT EDITOR
+// import JoditEditor from "jodit-react";
 
 const ArticleForm = () => {
-    
+
     const [articleFormData, setArticleFormData] = useState({
         title: '',
         body: ''
@@ -18,7 +19,7 @@ const ArticleForm = () => {
 
         setArticleFormData({
             ...articleFormData,
-            [name]:value
+            [name]: value
         })
     }
 
@@ -27,7 +28,6 @@ const ArticleForm = () => {
             console.log(result)
             // holding all the cache data inside the data variable
             const data = proxy.readQuery({
-                // GET_ARTICLE...??
                 query: CREATE_ARTICLE
             })
             // displays the newly created article at the top of the feed by updating the proxy to refresh
@@ -35,14 +35,14 @@ const ArticleForm = () => {
             data.getArticles = [result.data.createArticle, ...data.getArticles]
             proxy.writeQuery({ query: CREATE_ARTICLE, data })
             console.log(articleFormData)
-            setArticleFormData({title: '', body: ''});
+            setArticleFormData({ title: '', body: '' });
         }
     });
 
     function onSubmit(event) {
         event.preventDefault();
         // const {body, title} = articleFormData
-        createArticle({variables: {...articleFormData} })
+        createArticle({ variables: { ...articleFormData } })
     }
 
     return (
@@ -50,21 +50,20 @@ const ArticleForm = () => {
             <Form onSubmit={onSubmit} style={{ margineBottom: 20 }}>
                 <h2>Create a Article</h2>
                 <Form.Field>
-                        <Form.Input
-                            placeholder='Title'
-                            name='title'
-                            onChange={onChangeFormData}
-                            value={articleFormData.title}
-                            error={error ? true : false}
-                        />
-                        {/* WAS FORM.INPUT */}
-                        <TextArea
-                            placeholder='Article Body'
-                            name='body'
-                            onChange={onChangeFormData}
-                            value={articleFormData.body}
-                            error={error ? true : false}
-                        />
+                    <Form.Input
+                        placeholder='Title'
+                        name='title'
+                        onChange={onChangeFormData}
+                        value={articleFormData.title}
+                        error={error ? true : false}
+                    />
+                    <TextArea
+                        placeholder='Article Body'
+                        name='body'
+                        onChange={onChangeFormData}
+                        value={articleFormData.body}
+                        error={error ? true : false}
+                    />
                     <Button type='submit' color='teal' onClick={createArticle}>
                         Submit
                     </Button>

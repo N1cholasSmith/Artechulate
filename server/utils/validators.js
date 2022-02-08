@@ -39,8 +39,3 @@ module.exports.validateLoginInput = ( username, password ) => {
         valid: Object.keys(errors).length <1
     }
 }
-
-    // // ARTICLE VALIDATOR ==================================================
-    // if (!article || article === ''){
-    //     errors.article = 'Article must not be empty';
-    // }

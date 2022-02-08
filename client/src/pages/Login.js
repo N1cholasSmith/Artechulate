@@ -24,7 +24,7 @@ function Login(props) {
   const history = useHistory
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(proxy, {data: {login: userData}}) {
+    update(proxy, { data: { login: userData } }) {
       context.login(userData)
       console.log(userData)
     },
@@ -53,9 +53,9 @@ function Login(props) {
         variables: { ...userFormData },
       });
 
-      if(data != undefined)
-      // when data comes back from login call the Authorization
-      Auth.login(data.login.token);
+      if (data != undefined)
+        // when data comes back from login call the Authorization
+        Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }

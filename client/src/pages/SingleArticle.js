@@ -14,7 +14,6 @@ import {
     Icon,
     Label,
     Form,
-    Feed
 } from 'semantic-ui-react'
 
 // Components ===============================================================
@@ -31,8 +30,6 @@ import { CREATE_COMMENT } from '../utils/mutations';
 import { GET_ARTICLE } from '../utils/queries'
 
 function SingleArticle(props) {
-    // get post id from the url (params)
-    // const articleId = props.match.params.articleId;
     const { articleId } = useParams();
     console.log(articleId);
 
@@ -51,7 +48,6 @@ function SingleArticle(props) {
         },
     });
     const articleData = data?.getArticle || []
-    // console.log(articleData)
 
 
     const [createComment] = useMutation(CREATE_COMMENT, {
@@ -70,7 +66,6 @@ function SingleArticle(props) {
         props.history.push('/Feed')
     }
 
-
     let articleMarkup;
     if (loading) {
         articleMarkup =
@@ -85,7 +80,7 @@ function SingleArticle(props) {
             title,
             _id: id,
             body,
-            createdAt, 
+            createdAt,
             username,
             comments,
             likes,
@@ -118,7 +113,7 @@ function SingleArticle(props) {
                                     {body}
                                 </Card.Description>
                             </Card.Content>
-                         
+
                             <Card.Content extra>
                                 <LikeButton user={user} article={{ id, likeCount, likes }}></LikeButton>
                                 <Button labelPosition='right' onClick={() => console.log('Comment on Post')}>
@@ -165,7 +160,6 @@ function SingleArticle(props) {
                             </Card>
                         )}
                         {/* MAP COMMENTS ================================================================================= */}
-
                         {comments.map((comment) => (
 
                             <Card fluid key={comment.length}>
@@ -179,7 +173,6 @@ function SingleArticle(props) {
                                     <Card.Description>{comment.body}</Card.Description>
                                 </Card.Content>
                             </Card>
-
                         ))}
 
                     </Grid.Column>

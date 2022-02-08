@@ -7,7 +7,7 @@ import '../styles/styles.css'
 function HomeAbout() {
     return (
         <>
-           
+
             <h1 className='text-center about-title'> About</h1>
             <p className='text-center about-p'>
                 Artechulate is a Web3.0 platform to assist the average user in articulating technical articles.

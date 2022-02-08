@@ -4,6 +4,8 @@ import { Card, Image, Button } from 'semantic-ui-react';
 import Face from '../assets/images/face.jpg';
 import AI from '../assets/images/ML.jpeg'
 import Jimmy from '../assets/images/Jimmy.jpg'
+
+
 // HARD CODED FOR EXAMPLE - RAN SHORT ON TIME
 function ProfileAbout() {
     return (
@@ -48,7 +50,7 @@ function ProfileAbout() {
                                         size='mini'
                                         src={Face}
                                     />
-                                    <Card.Header>JimmyRyan</Card.Header>
+                                    <Card.Header>@JimmyRyan</Card.Header>
                                     <Image src={AI} />
                                     <Card.Description className='article-card-title'>
                                         AI in 2022
