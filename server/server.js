@@ -1,14 +1,11 @@
 const express = require('express');
 const path = require('path');
 // Import the ApolloServer class
-const { ApolloServer, PubSub } = require('apollo-server-express');
-// const { createServer } = require('http');
+const { ApolloServer } = require('apollo-server-express');
+const passport = require('passport')
 const db = require('./config/connection');
 const { typeDefs, resolvers } = require('./schemas');
 require('dotenv').config();
-
-// SUBSCRIPTION ==================================================================================
-// const pubsub = new PubSub();
 
 const { authMiddleware } = require('./utils/auth')
 

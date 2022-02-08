@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client';
@@ -8,10 +8,12 @@ import '../styles/styles.css'
 import { REGISTER_USER } from '../utils/mutations';
 // AUTH *******
 import Auth from '../utils/auth';
+import { AuthContext } from '../utils/authentication';
 // COMPONENTS
 import RegisterBackground from '../assets/images/register.jpeg'
 
 function Register(props) {
+  const context = useContext(AuthContext)
   const [errors, setErrors] = useState({});
 
   const [userFormData, setUserFormData] = useState({
@@ -24,13 +26,13 @@ function Register(props) {
   const history = useHistory
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
-      console.log(result)
+    update(proxy, {data: { register: userData}}) {
+      context.login(userData)
     },
     onError(err) {
       // returns one object with all errors
       console.log(err)
-      setErrors(err)
+      setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
     // variables: values
   })
@@ -52,7 +54,7 @@ function Register(props) {
       });
       console.log('checking if register is fetching data')
       // when data comes back from login call the Authorization
-      Auth.login(data.registerUser.token);
+      if (data !== undefined) Auth.login(data.registerUser.token);
     } catch (e) {
       console.error(e);
       console.log(e)

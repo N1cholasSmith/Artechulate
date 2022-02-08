@@ -90,12 +90,12 @@ const resolvers = {
         })
       }
 
-      // const newUser = new User({
-      //   email,
-      //   username,
-      //   password,
-      //   createdAt: new Date().toISOString()
-      // });
+      const newUser = new User({
+        email,
+        username,
+        password,
+        createdAt: new Date().toISOString()
+      });
 
       user = await User.create(registerInput);
       const token = signToken(user);

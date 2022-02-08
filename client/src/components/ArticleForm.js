@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button, TextArea } from 'semantic-ui-react';
-import { useMutation, useQuery } from "@apollo/client";
-
-// IMPORT HOOK
-import { useForm } from '../utils/hooks';
+import { useMutation } from "@apollo/client";
+// MUTATION
 import { CREATE_ARTICLE } from "../utils/mutations";
-import { GET_ARTICLES } from '../utils/queries';
 
-// AUTH *******
-import Auth from '../utils/auth';
 
 const ArticleForm = () => {
+    
     const [articleFormData, setArticleFormData] = useState({
         title: '',
         body: ''
@@ -69,7 +65,7 @@ const ArticleForm = () => {
                             value={articleFormData.body}
                             error={error ? true : false}
                         />
-                    <Button type='submit' color='teal'>
+                    <Button type='submit' color='teal' onClick={createArticle}>
                         Submit
                     </Button>
                 </Form.Field>

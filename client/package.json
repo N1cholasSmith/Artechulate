@@ -13,6 +13,7 @@
     "graphql": "^16.3.0",
     "gsap": "^3.9.1",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { Form, Button } from 'semantic-ui-react'
 import { useMutation } from '@apollo/client';
@@ -6,16 +6,16 @@ import '../styles/styles.css'
 
 // REGISTER MUTATION
 import { LOGIN_USER } from '../utils/mutations';
-
 // AUTH *******
 import Auth from '../utils/auth';
-
+import { AuthContext } from '../utils/authentication';
 // COMPONENTS
 import RegisterBackground from '../assets/images/register.jpeg'
 
 
 function Login(props) {
-  // AUTH *******
+  const context = useContext(AuthContext);
+  const [errors, setErrors] = useState({})
   const [userFormData, setUserFormData] = useState({
     username: '',
     password: ''
@@ -23,17 +23,15 @@ function Login(props) {
 
   const history = useHistory
 
-  // errors object
-  const [errors, setErrors] = useState({})
-
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(proxy, result) {
-      console.log(result)
+    update(proxy, {data: {login: userData}}) {
+      context.login(userData)
+      console.log(userData)
     },
     onError(err) {
       // returns one object with all errors
       console.log(err)
-      setErrors(err)
+      setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
   })
 
@@ -55,6 +53,7 @@ function Login(props) {
         variables: { ...userFormData },
       });
 
+      if(data != undefined)
       // when data comes back from login call the Authorization
       Auth.login(data.login.token);
     } catch (e) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Label, Image, Button } from 'semantic-ui-react';
-// import moment from 'moment'
+
 
 // IMPORT LIKE BUTTON =======================================================
 import  LikeButton  from './LikeButton';
@@ -12,6 +12,7 @@ import Face from '../assets/images/face.jpg';
 import VR from '../assets/images/VR.jpeg';
 // AUTH =====================================================================
 import Auth from '../utils/auth';
+
 
 
 function ArticleCard({ 
@@ -36,9 +37,8 @@ function ArticleCard({
                     src={Face}
                 />
                 <Card.Header>@{username}</Card.Header>
-                {/* <Card.Meta as={Link} to={`/articles/${id}`}>
-                {moment(createdAt).fromNow(true)} 
-                </Card.Meta> */}
+                {/* <Card.Meta>{moment(createdAt).fromNow(true)} </Card.Meta> */}
+                <Card.Meta>{createdAt} </Card.Meta>
                 <Image src={VR} />
                 <Card.Description className='article-card-title'>
                     {title}
@@ -53,8 +53,8 @@ function ArticleCard({
             <Card.Content extra>
           
                     <LikeButton user={user} article={{ id, likes, likeCount}} />
-                    <Button labelPosition='right' as={Link} to={`/article/${id}`}>
-                        <Button color='blue' basic>
+                    <Button labelPosition='right'>
+                        <Button color='blue' basic as={Link} to={`/articles/${id}`}>
                             <Icon name='comments' />
                             Comment
                         </Button>

@@ -1,6 +1,7 @@
 
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useRef, useState } from 'react';
+// import moment from "moment";
 import { useParams } from 'react-router-dom';
 import {
     Grid,
@@ -84,7 +85,7 @@ function SingleArticle(props) {
             title,
             _id: id,
             body,
-            // createdAt, 
+            createdAt, 
             username,
             comments,
             likes,
@@ -107,9 +108,8 @@ function SingleArticle(props) {
                                     src={Face}
                                 />
                                 <Card.Header>@{username}</Card.Header>
-                                {/* <Card.Meta as={Link} to={`/articles/${id}`}>
-                                {moment(createdAt).fromNow(true)} 
-                                </Card.Meta> */}
+                                {/* <Card.Meta>{moment(createdAt).fromNow(true)} </Card.Meta> */}
+                                <Card.Meta>{createdAt}</Card.Meta>
                                 <Image src={VR} />
                                 <Card.Description className='article-card-title'>
                                     {title}
