@@ -31,7 +31,7 @@ import { GET_ARTICLE } from '../utils/queries'
 
 function SingleArticle(props) {
     const { articleId } = useParams();
-    console.log(articleId);
+    // console.log(articleId);
 
     const user = Auth.getProfile().data
     const loggedIn = Auth.loggedIn()

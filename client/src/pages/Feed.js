@@ -21,7 +21,7 @@ import { GET_ARTICLES } from '../utils/queries'
 const Feed = () => {
     // const  user  = useContext(setContext)
     const { loading, data } = useQuery(GET_ARTICLES)
-    console.log(data)
+    // console.log(data)
     const isLoggedIn = Auth.loggedIn();
     const [visible, setVisble] = useState(false)
     const articleData = data?.getArticles || []

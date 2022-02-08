@@ -31,7 +31,7 @@ function Register(props) {
     },
     onError(err) {
       // returns one object with all errors
-      console.log(err)
+      // console.log(err)
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
     // variables: values
@@ -46,18 +46,18 @@ function Register(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(userFormData)
+    // console.log(userFormData)
 
     try {
       const { data } = await registerUser({
         variables: { registerInput: { ...userFormData } },
       });
-      console.log('checking if register is fetching data')
+      // console.log('checking if register is fetching data')
       // when data comes back from login call the Authorization
       if (data !== undefined) Auth.login(data.registerUser.token);
     } catch (e) {
       console.error(e);
-      console.log(e)
+      // console.log(e)
     }
 
     // resets form once its done

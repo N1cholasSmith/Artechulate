@@ -25,7 +25,7 @@ const ArticleForm = () => {
 
     const [createArticle, { error }] = useMutation(CREATE_ARTICLE, {
         update(proxy, result) {
-            console.log(result)
+            // console.log(result)
             // holding all the cache data inside the data variable
             const data = proxy.readQuery({
                 query: CREATE_ARTICLE
@@ -34,7 +34,7 @@ const ArticleForm = () => {
             // then displays get articles underneath which is already sorted in order of time on server
             data.getArticles = [result.data.createArticle, ...data.getArticles]
             proxy.writeQuery({ query: CREATE_ARTICLE, data })
-            console.log(articleFormData)
+            // console.log(articleFormData)
             setArticleFormData({ title: '', body: '' });
         }
     });

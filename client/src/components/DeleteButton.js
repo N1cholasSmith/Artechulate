@@ -14,17 +14,16 @@ function DeleteButton({ articleId, commentId, callback }) {
 
     const [deleteArticleOrMutation] = useMutation(mutation, {
         update(proxy, result) {
-            console.log(result)
+            // console.log(result)
             setConfirmOpen(false);
             if (!commentId) {
                 // remove article from cache
                 const data = proxy.readQuery({
                     query: GET_ARTICLES
                 });
-                // delete only the article with matching ID and filter out everything else
-                // data.getArticles = [result.data.createArticle, ...data.getArticles]
-                console.log(data.getArticles)
-                console.log(articleId)
+
+                // console.log(data.getArticles)
+                // console.log(articleId)
 
                 data.getArticles = data.getArticles.filter(articles => articles.id !== articleId)
                 proxy.writeQuery({ query: GET_ARTICLES, data })

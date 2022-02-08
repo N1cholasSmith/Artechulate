@@ -26,11 +26,11 @@ function Login(props) {
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, { data: { login: userData } }) {
       context.login(userData)
-      console.log(userData)
+      // console.log(userData)
     },
     onError(err) {
       // returns one object with all errors
-      console.log(err)
+      // console.log(err)
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
   })
