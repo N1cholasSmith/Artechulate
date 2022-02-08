@@ -12,7 +12,11 @@ Artechulate is based on a Web3.0 generative model made famous by Constellation N
 Artechulate solves the trilemma of bringing in new users, motivating content creators, and motivating individuals to maintain the website. Artechulate is an innovative solution to reward every member of strong communities in a self-sustaining Web3.0 application. Artechulate is paving the way for a new standard of websites.
 
 
-[Artechulate.com](https://n1cholassmith.github.io/artechulate/)
+
+https://user-images.githubusercontent.com/88865022/152925891-a22ab7fe-2d65-40c2-aaba-b81234eedca8.mp4
+
+
+[Artechulate.com](https://peaceful-mesa-82404.herokuapp.com/)
 ---
 ## Table of Contents
 - [Description](#description)
